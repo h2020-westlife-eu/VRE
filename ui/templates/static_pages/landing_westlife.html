@@ -1,0 +1,53 @@
+{% extends "skeleton_angular.html" %}
+{% load assets %}{% load title_switcher %}
+{% block html_class %}class="full-westlife"{% endblock html_class%}
+{% block ng_app %}class="nobackground"{% endblock ng_app %}
+{% block stylesheets %}
+    {% assets "css_landing" %}
+        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
+{% endblock stylesheets %}
+
+{% block body %}
+{% include "blocks/navbar_root_westlife.html" %}
+<div class="presentation-landing-page">
+    <h1><b>
+        West-Life
+        <br>
+        Life Sciences in the Cloud
+    </b></h1>
+    <br>
+    <h3 class="presentation-description">
+        Teams of scientists and engineers around the world use West-Life to push the boundaries<br />in life sciences.
+    </h3>
+    <br><br>
+    <span class="btn landing-green-button">
+        <h3><a href="mailto:fruty@luna-technology.com">Contact us</a></h3>
+    </span>
+
+    <div class="acknowledgement-notice">
+        <p>If the job you submit here leads to a publication, please include this acknowledgement:<br />
+            “This work makes use of services provided by the WestLife VRE (www.west-life.eu), a project funded by the European Commision contract H2020-EINFRA-2015-1-675858”</p>
+
+        <p>And if using the grid/cloud resources of EGI:<br />
+            "The WestLife VRE project (European H2020 e-Infrastructure grant, contract no. 675858, www.west-life.eu), supported by the European Grid Initiative (EGI) through the national GRID Initiatives of Belgium, France, Italy, Germany, the Netherlands, Poland, Portugal, Spain, UK, South Africa, Malaysia, Taiwan and the US Open Science Grid (OSG) are acknowledged for the use of web portals, computing and storage facilities. “</p>
+    </div>
+</div>
+{% include "blocks/footer_westlife.html" %}
+{% endblock body %}
+
+{% block javascripts %}
+    <script type="text/javascript" charset="utf-8">
+        var div = document.createElement("div");
+        div.innerHTML = "<!--[if lt IE 9]><i></i><![endif]-->";
+        var isIeLessThan9 = (div.getElementsByTagName("i").length == 1);
+        if (isIeLessThan9) {
+            window.location = {% url 'internet_explorer' %};
+        }
+        // IF THE BROWSER IS INTERNET EXPLORER 10
+        if (navigator.appVersion.indexOf("MSIE 10") !== -1)
+          {
+              window.location = {% url 'internet_explorer' %};
+          }
+    </script>
+{% endblock javascripts %}

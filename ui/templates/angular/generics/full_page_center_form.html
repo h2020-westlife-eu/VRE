@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row" style="min-height: 100px;"></div>
+
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            {% block ngmessages %}{% endblock ngmessages %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title"><b>{% block form_title %}{% endblock %}</b></p>
+                </div>
+                <form submit-function="submit({{ form.scope_prefix}})" name="{{ form.form_name }}">
+                    <div class="panel-body">
+                        {{ form.as_div }}
+                    </div>
+                    <div class="panel-footer">
+                        <button
+                               class="btn btn-primary"
+                               ng-disabled="{{ form.form_name }}.$invalid">
+                               Submit
+                        </button>
+                        <span class="pull-right">
+                            {% block additional_links %}{% endblock %}
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

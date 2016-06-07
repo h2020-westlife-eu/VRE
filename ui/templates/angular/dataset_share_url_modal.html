@@ -1,0 +1,8 @@
+{% extends "angular/generics/modal.html" %}
+
+{% block modal_title %}Share Dataset URL {% endblock %}
+
+{% block modal_body %}
+<p>Anyone can download your dataset with the following url:</p>
+<textarea ng-bind="context.share_url" style="width: 100%;"></textarea>
+{% endblock %}

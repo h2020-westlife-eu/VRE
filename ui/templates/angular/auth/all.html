@@ -1,0 +1,21 @@
+<script type="text/ng-template" id="login.html">
+    {% include "angular/auth/login.html" with form=login_form%}
+</script>
+<script type="text/ng-template" id="logout.html">
+    {% include "angular/auth/logout.html" %}
+</script>
+<script type="text/ng-template" id="profile.html">
+    {% include "angular/auth/profile.html" %}
+</script>
+<script type="text/ng-template" id="register.html">
+    {% include "angular/auth/register.html" with form=register_form %}
+</script>
+<script type="text/ng-template" id="change_password.html">
+    {% include "angular/auth/change_password.html" with form=change_password_form %}
+</script>
+<script type="text/ng-template" id="forgot_password.html">
+    {% include "angular/auth/forgot_password.html" with form=forgot_password_form %}
+</script>
+<script type="text/ng-template" id="reset_password.html">
+    {% include "angular/auth/reset_password.html" with form=reset_password_form %}
+</script>

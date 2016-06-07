@@ -1,0 +1,21 @@
+{% extends "angular/generics/full_page_center_form.html" %}
+
+{% block form_title %}Login{% endblock %}
+{% block ngmessages %}
+	<div class="center">
+        <ng-messages for="loginCtrl.messages" role="alert">
+            <ng-message when="emailSentResetPassword" class="alert alert-success">Email has been successfully sent to {% verbatim %}{{ loginCtrl.vars.emailSentResetPassword }}{% endverbatim %}</ng-message>
+            <ng-message when="passwordResetSuccess" class="alert alert-success">Password has been successfully updated.</ng-message>
+        </ng-messages>
+    </div>
+{% endblock ngmessages %}
+{% block additional_links %}
+	<a href="#/forgot_password" title="Forgot Password">
+    	Forgotten password?
+    </a>
+    <span ng-if="enable_register">
+        <a href="#/register" title="register">
+            Don't have an account? Register.
+        </a>
+    </span>
+{% endblock %}

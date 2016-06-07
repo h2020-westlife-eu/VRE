@@ -1,0 +1,43 @@
+{% extends "skeleton_angular.html" %}
+{% load assets %}{% load title_switcher %}
+{% block html_class %}class="full-pype"{% endblock html_class%}
+{% block ng_app %}class="nobackground"{% endblock ng_app %}
+{% block stylesheets %}
+    {% assets "css_landing" %}
+        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
+{% endblock stylesheets %}
+
+{% block body %}
+{% include "blocks/navbar_root.html" %}
+<div class="presentation-landing-page">
+    <h1><b>
+        Scientific Data Management in the Cloud
+    </b></h1>
+    <br>
+    <h3 class="presentation-description">
+        Teams of scientists and engineers around the world use Pype to manage their data sets across their cloud repositories in a unified way.
+    </h3>
+    <br><br>
+    <span class="btn landing-green-button">
+        <h3><a href="mailto:fruty@luna-technology.com">Contact us</a></h3>
+    </span>
+</div>
+{% include "blocks/footer.html" %}
+{% endblock body %}
+
+{% block javascripts %}
+    <script type="text/javascript" charset="utf-8">
+        var div = document.createElement("div");
+        div.innerHTML = "<!--[if lt IE 9]><i></i><![endif]-->";
+        var isIeLessThan9 = (div.getElementsByTagName("i").length == 1);
+        if (isIeLessThan9) {
+            window.location = {% url 'internet_explorer' %};
+        }
+        // IF THE BROWSER IS INTERNET EXPLORER 10
+        if (navigator.appVersion.indexOf("MSIE 10") !== -1)
+          {
+              window.location = {% url 'internet_explorer' %};
+          }
+    </script>
+{% endblock javascripts %}

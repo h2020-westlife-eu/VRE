@@ -1,0 +1,19 @@
+{% extends "angular/generics/modal.html" %}
+
+{% block modal_title %}{% block title %}Create Object{% endblock %}{% endblock %}
+
+{% block before_modal %}<form submit-function="submit({{ form.scope_prefix }})" name="{{ form.form_name}}">{% endblock %}
+
+{% block modal_body %}
+    {{ form.as_div }}
+{% endblock %}
+
+{% block modal_footer %}
+    <button
+            class="btn btn-primary"
+            ng-disabled="{{ form.form_name }}.$invalid">
+        Submit
+    </button>
+{% endblock %}
+
+{% block after_modal %}</form>{% endblock %}

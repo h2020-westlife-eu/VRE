@@ -1,0 +1,25 @@
+{% load staticfiles %}{% load title_switcher %}
+<div id="unsupported-browser" class="modal fade in">
+  <div class="modal-dialog" style="width: 100%; padding: 15px;">
+    <div class="modal-content" style="height: 800px;">
+      <div class="modal-header">
+        <h4 class="modal-title">Unsupported Browser</h4>
+      </div>
+      <div class="modal-body">
+        <p>{% application_title %} doesn't support your browser or your device. To access {% application_title %}, you need a modern browser:</p>
+          <div class="browser-icon">
+              <img src="{% static 'img/Google_Chrome_icon_(2011).png' %}" />
+              <h3>Chrome (version at least 26)</h3>
+          </div>
+          <div class="browser-icon">
+              <img src="{% static 'img/firefox_logo-only_RGB.png' %}" />
+              <h3>Firefox (version at least 10)</h3>
+          </div>
+          <div class="browser-icon">
+              <img src="{% static 'img/Internet_Explorer_10_logo.svg' %}" />
+              <h3>Internet Explorer (version at least 11)</h3>
+          </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

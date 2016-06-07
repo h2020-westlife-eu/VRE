@@ -1,0 +1,249 @@
+/* Yay css. I have no idea what this is, but this is important. */
+html, body {
+    height: 100%;
+}
+
+label.required::after {
+    content: "*";
+}
+
+.center {
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hand-cursor {
+    cursor: hand;
+    cursor: pointer;
+}
+
+#main_navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+    max-height: 52px;
+}
+
+.inline_block {
+    display: inline-block;
+}
+
+.navbar-placeholder {
+    height: 48px;
+    background-color: #101010;
+    margin: 0;
+}
+
+#main_content {
+    height: calc(100% - 52px);
+}
+
+.height100 {
+    height: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#toolbar_left {
+    padding: 0;
+    background-color: #222222;
+    width: 30px;
+    float: left;
+    margin: 0;
+}
+
+.left_panel {
+    padding: 0;
+    width: 300px;
+    float: left;
+    margin: 0;
+    background-color: #EEEEEE;
+    -moz-box-shadow: 5px -2px 5px #AAAAAA;
+    -webkit-box-shadow: 5px -2px 5px #AAAAAA;
+    box-shadow: 5px -2px 5px #AAAAAA;
+    z-index: 10;
+}
+
+#dataset_left_panel {
+    padding: 0;
+    width: 300px;
+    float: left;
+    margin: 0;
+    background-color: #DEDEDE;
+}
+
+.left_panel_header {
+    height: 30px;
+    background-color: #337ab7 ;
+    color: #fff;
+}
+
+#dataset_left_panel_header {
+    height: 30px;
+    background-color: #DDDDDD;
+}
+
+.left_panel_header h3 {
+    margin: 0;
+    float: left;
+    line-height: 30px;
+    font-family: sans-serif;
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-left: 15px;
+}
+
+.left_panel_header h4 {
+    margin: 0;
+    margin-left: 15px;
+    line-height: 26px;
+    float: left;
+    max-width: 600px;
+    overflow: hidden;
+}
+
+#dataset_left_panel_header h3 {
+    margin: 0;
+    float: left;
+    line-height: 30px;
+    font-family: sans-serif;
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-left: 15px;
+}
+
+.left_panel_header_add_button {
+    font-size: 30px;
+    line-height: 30px;
+    text-align: center;
+    vertical-align: bottom;
+    width: 30px;
+    height: 30px;
+    float: right;
+    background-color: #999999;
+}
+
+#dataset_left_panel_header_add_button {
+    font-size: 30px;
+    line-height: 30px;
+    text-align: center;
+    vertical-align: bottom;
+    width: 30px;
+    height: 30px;
+    float: right;
+    background-color: #999999;
+}
+
+.left_panel_body {
+    height: calc(100% - 30px);
+    overflow: auto;
+}
+
+.left_panel_body {
+    padding-left: 10px;
+    /* content is in td cells which add a 5px padding. Title has a 15px left padding */
+}
+
+#dataset_left_panel_body {
+    height: calc(100% - 30px);
+}
+
+.left_panel_body #no_datasets {
+    padding: 15px;
+}
+
+.left_panel_body li.active > a {
+    font-weight: bold;
+}
+
+.left_panel_body li.top_level_hierarchy {
+    border-bottom: 1px dotted rgb(136, 136, 136);
+    margin-right: 15px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+#dataset_left_panel_body #no_datasets {
+    padding: 15px;
+}
+
+.right_panel {
+    padding: 0;
+    /* margin-left: 230px; */
+    background-color: #F4F4F4;
+    overflow: auto;
+}
+
+.right_panel_header {
+    height: 30px;
+    background-color: #E1E1E1;
+    padding-right: 15px;
+}
+
+.right_panel_header h4 {
+    margin: 0;
+    margin-left: 15px;
+    line-height: 26px;
+    float: left;
+    max-width: 600px;
+    overflow: hidden;
+}
+
+.right_panel_header .subheader_button, .left_panel_header .subheader_button {
+    float: right;
+    line-height: 26px;
+}
+
+.header_button_height .btn-xs{
+    line-height: 26px !important;
+}
+
+.right_panel_body {
+    height: calc(100% - 30px);
+}
+
+.right_panel_body_padding {
+    padding: 15px 15px 15px 15px;
+}
+
+#dataset_right_panel {
+    padding: 0;
+    margin-left: 230px;
+    background-color: #EEEEEE;
+}
+
+.right_panel .no_datafiles {
+    padding: 15px;
+}
+
+#dataset_right_panel .no_datafiles {
+    padding: 15px;
+}
+
+
+
+#storage_providers_right_panel {
+    padding: 0;
+    margin-left: 15px;
+    background-color: #EEEEEE;
+}
+
+
+#tasks_panel {
+    background-color: #E6E6E6;
+    position: absolute;
+    bottom: 0;
+    -moz-box-shadow: inset 5px 0 5px #AAAAAA;
+    -webkit-box-shadow: inset 5px 0 5px #AAAAAA;
+    box-shadow: inset 5px 0 5px #AAAAAA;
+    /* because of position being absolute, we need to hack the shadow to display it. Otherwise, the task panel is displayed above the shadow of left panel*/
+    /* width: calc(100% - 230px); */
+}
+
+.no-bullet {
+    list-style-type: none;
+}

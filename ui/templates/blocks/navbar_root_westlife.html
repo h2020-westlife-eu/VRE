@@ -1,0 +1,14 @@
+{% load staticfiles %}{% load title_switcher %}
+<nav class="top same_color_than_footer">
+    <a href="{% url 'home' %}">
+        <img class="logo" src="{% application_logo_white %}" alt="brand logo">
+    </a>
+
+    <ul>
+        {# <li><a href="/docs/">Support</a></li> #}
+        <li><a href="http://internal-wiki.west-life.eu">Internal Wiki</a></li>
+        <li><a href="{% url 'westlife_services' %}">Services</a></li>
+        <li><a href="https://www.west-life.eu">About us</a></li>
+        {# <li class="sign_in"><a href="{% url 'main' %}">Enter</a></li> #}
+    </ul>
+</nav>

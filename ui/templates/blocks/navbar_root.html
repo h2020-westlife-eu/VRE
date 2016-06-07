@@ -1,0 +1,28 @@
+{% load staticfiles %}{% load title_switcher %}
+<nav class="top">
+    <a href="{% url 'home' %}">
+        <img class="logo" src="{% application_logo_white %}" alt="brand logo">
+    </a>
+
+    <ul>
+        <li><a href="{% url 'main' %}">Login</a></li>
+    </ul>
+
+    {% comment %}
+    <ul>
+        {% if can_signin %}
+        <li class="sign_in"><a href="{% url 'account_login' %}">Sign in</a></li>
+        {% else %}
+        <li class="sign_in"><a href="{% url 'switch_after_login' %}">Enter</a></li>
+        {% endif %}
+        {% if request.user.is_anonymous %}
+        <li>
+            <a href="{% url 'account_signup' %}" class="btn_sticky ga_track_signup mxpnl_signup_nav cta_track">Sign up</a>
+        </li>
+        {% endif %}
+        <li class="mobile_menu_btn">
+            <a href="#" class="btn_sticky">Menu</a>
+        </li>
+    </ul>
+    {% endcomment %}
+</nav>

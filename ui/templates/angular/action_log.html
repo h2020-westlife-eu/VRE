@@ -1,0 +1,34 @@
+<div class="height100">
+    {# Left bar: The toolbar #}
+    <div class="height100" id="toolbar_left">
+
+    </div>
+
+    {# Right panel: The contents of the selected dataset #}
+    <div class="height100 right_panel">
+        <div class="right_panel_header">
+            <h4><b>Logged User Actions</b></h4>
+        </div>
+        <div class="right_panel_body right_panel_body_padding">
+            <div ng-if="actions.length > 0">
+                <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width: 250px;">Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="action in actions">
+                            <td ng-bind="action.created_at|displayDate"></td>
+                            <td ng-bind="action.text"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p ng-if="actions.length === 0" class="no_datafiles">
+                <i class="fa fa-info-circle"></i> No actions logged yet.
+            </p>
+        </div>
+    </div>
+</div>

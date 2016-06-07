@@ -1,0 +1,20 @@
+{% extends 'rest_framework_swagger/base.html' %}
+
+{% block branding %}<a id="logo" href="/api/docs/">Pype API Docs</a>{% endblock %}
+
+{% block api_selector %}
+                        <form id="api_selector">
+                            <div class="input"><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
+                            <div class="input"><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div>
+                            <div class="input"><a id="explore" href="#">Explore</a></div>
+                        </form>
+{% endblock %}
+{% block django_rest_swagger %}
+{%comment %}
+            <div id="django-rest-swagger">
+                <div class="swagger-ui-wrap">
+                    Powered by <a href="https://github.com/marcgibbons/django-rest-swagger/">Django REST Swagger</a>
+                </div>
+            </div>
+{% endcomment %}
+{% endblock %}

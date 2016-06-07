@@ -1,0 +1,98 @@
+<div class="height100">
+    {# Left bar: The toolbar #}
+    <div class="height100" id="toolbar_left">
+
+    </div>
+
+    {# Left panel: The folder hierarchy #}
+    <div class="height100 left_panel" ng-style="{width: left_panel_width + 'px'}">
+        <div class="left_panel_header">
+            <h4>Cloud Folders</h4>
+        </div>
+        <div class="left_panel_body" style="padding-top:15px;">
+            <div ng-if="root_folders.length > 0">
+                <ul style="list-style-type: none; padding-left: 15px;">
+                    <li ng-repeat="folder in root_folders" class="top_level_hierarchy hand-cursor" ng-class="{active: folder.pk === active_folder_pk}" ng-include="'folder_hierarchy.html'">
+                    </li>
+                </ul>
+
+            </div>
+            <div ng-if="root_folders.length === 0" id="no_datasets">
+                <p>You haven't linked any storage providers. <a href="/home/#/storage_providers">Click here to add one.</a></p>
+            </div>
+        </div>
+    </div>
+
+    {# Right panel: The contents of the selected dataset #}
+    <div class="height100 right_panel" ng-style="{'margin-left': (left_panel_width+30) + 'px'}">
+        <div class="right_panel_header">
+            <span ng-if="active_folder.pk !== undefined">
+                <h4 ng-bind="active_folder.name"></h4>
+                <div class="btn-group btn-group-xs pull-right" role="group">
+                    <button class="btn btn-default btn-xs subheader_button" ng-click="open_create_folder_modal(active_folder_pk)"><i class="fa fa-plus"></i> New Folder</button>
+                    <button class="btn btn-default btn-xs subheader_button" ng-click="open_create_datafile_modal(active_folder_pk);"><i class="fa fa-upload"></i> Upload File</button>
+                    <button ng-if="!disable_refresh_folder(active_folder)" class="btn btn-default btn-xs subheader_button" click-function="refresh_folder(active_folder)"><i class="fa fa-refresh"></i> Refresh</button>
+                    <button ng-if="disable_refresh_folder(active_folder)" class="btn btn-default btn-xs subheader_button" ><i class="fa fa-spin fa-refresh"></i> Sync in progress</button>
+                </div>
+            </span>
+        </div>
+        <div class="right_panel_body right_panel_body_padding">
+            <div ng-if="active_datafiles.length > 0">
+                <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Filename</th>
+                            <th style="width: 220px">Uploaded</th>
+                            <th style="width: 100px">Size</th>
+                            <th style="width: 60px">State</th>
+                            <th style="width: 60px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="datafile in active_datafiles">
+                            <td ng-bind="datafile.filename"></td>
+                            <td ng-bind="datafile.created_at|displayDate"></td>
+                            <td ng-bind="datafile.size|displaySize"></td>
+                            <td ng-bind="datafile.readable_upload_state"></td>
+                            <td>
+                                <a ng-if="datafile.size !== null" ng-href="/api/datafiles/{% verbatim %}{{ datafile.pk }}{% endverbatim %}/download/?download_key={% verbatim %}{{ datafile.download_key }}{% endverbatim %}" target="_self"><i class="fa fa-download" title="Download"></i> </a>
+                                <a ng-if="datafile.size === null" ng-href="{% verbatim %}{{ datafile.external_link }}{% endverbatim %}" target="_blank"><i class="fa fa-share" title="View"></i> </a>
+                                {# <a ng-click="open_update_datafile_modal(datafile)"><i class="fa fa-pencil" title="Edit"></i> </a> #}
+                                <a ng-click="open_delete_datafile_modal(datafile)" class="hand-cursor"><i class="fa fa-trash" title="Delete"></i> </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p ng-if="active_datafiles.length === 0 && active_folder_pk !== undefined" class="no_datafiles">
+                No file in this folder yet. <a ng-click="open_create_datafile_modal(active_folder_pk);">Add one</a>
+            </p>
+            <div ng-if="active_folder_pk === undefined" class="no_datafiles">
+                <p><i class="fa fa-info-circle"></i> Select a folder to view the files it contains.</p>
+            </div>
+
+        </div>
+        {# The tasks panel down the page #}
+        <div ng-if="active_tasks" id="tasks_panel" ng-style="{'width': 'calc(100% - ' + (left_panel_width + 30) + 'px)' }" style="z-index:1" ng-controller="TasksController">
+            <table class="table table-hover table-condensed">
+                <tbody>
+                    <tr ng-repeat="task in active_tasks">
+                        <td ng-bind="task.filename" style="width: 200px; max-width: 200px; overflow: hidden;"></td>
+                        <td>
+                            {# Progress bar #}
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="{% verbatim %}{{ task.progress }}{% endverbatim %}"
+                                     aria-valuemin="0" aria-valuemax="100" ng-style="{'min-width': '2em', 'width': task.progress + '%'}">
+                                    <span ng-if="task.progress!=100"><span ng-bind="task.progress"></span>%</span>
+                                    <span ng-if="task.progress==100 && !task.done">Verifying file...</span>
+                                    <span ng-if="task.done && task.success">Done</span>
+                                    <span ng-if="task.done && !task.success">Failed</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

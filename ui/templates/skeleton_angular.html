@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" {% block html_class %}{% endblock html_class %}>
+  <head>
+    {# <base href="/"> #}
+
+    {% block loading_assets %}
+      {% load staticfiles %}{% load assets %}{% load title_switcher %}
+    {% endblock loading_assets %}
+    <title>{% application_title %} - {% block title %}Home{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta name="description" content="Symhub">
+    <meta name="author" content="Luna Technology">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    {% block stylesheets %}
+      {% assets "css_main" %}
+        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+      {% endassets %}
+    {% endblock stylesheets %}
+
+    {# Favicos and touch icons #}
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/favicons/apple-touch-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/favicons/apple-touch-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/favicons/apple-touch-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'img/favicons/apple-touch-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/favicons/apple-touch-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/favicons/apple-touch-icon-76x76.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'img/favicons/favicon-96x96.png' %}" sizes="96x96">
+    <link rel="icon" type="image/png" href="{% static 'img/favicons/favicon-16x16.png' %}" sizes="16x16">
+    <link rel="icon" type="image/png" href="{% static 'img/favicons/favicon-32x32.png' %}" sizes="32x32">
+    <meta name="msapplication-TileColor" content="#da532c">
+
+    <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+    <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+    <!--[if IE 8 ]> <body class="ie ie8 ">
+    <style type="text/css">
+      .navbar form.search input,.sidebar-nav form.search input,.sidebar-label,.thumb-account{border: none;}
+      .thumb-account span {width: 2px;}
+      .sidebar-nav .form-inline { display: none;}
+    </style>
+    <![endif]-->
+
+    <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+
+    <!--[if gte IE 9]>
+      <style type="text/css">.gradient {filter: none;}</style>
+    <![endif]-->
+
+  </head>
+  <body {% block ng_app %}ng-app="example.app.static"{% endblock ng_app %}>
+    {% block body %}
+        {% block navbar %}{% endblock navbar %}
+        {% block space_after_navbar %}{% endblock space_after_navbar %}
+        {% block content %}
+        {% endblock content %}
+      {% block footer %}{% endblock footer %}
+    {% endblock body %}
+    {% block javascripts %}
+      {% assets "js_main" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+      {% endassets %}
+      <script type="text/javascript" charset="utf-8">
+        var div = document.createElement("div");
+        div.innerHTML = "<!--[if lt IE 9]><i></i><![endif]-->";
+        var isIeLessThan9 = (div.getElementsByTagName("i").length == 1);
+        if (isIeLessThan9) {
+            window.location = {% url 'internet_explorer' %};
+        }
+        // IF THE BROWSER IS INTERNET EXPLORER 10
+        if (navigator.appVersion.indexOf("MSIE 10") !== -1)
+          {
+              window.location = {% url 'internet_explorer' %};
+          }
+    </script> 
+    {% endblock javascripts %}
+  </body>
+</html>

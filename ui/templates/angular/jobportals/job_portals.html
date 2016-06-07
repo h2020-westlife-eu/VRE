@@ -1,0 +1,35 @@
+<div class="height100">
+    {# Left toolbar #}
+    <div class="height100" id="toolbar_left">
+
+    </div>
+
+    {# Left panel #}
+    <div class="height100 left_panel" ng-style="{width: left_panel_width + 'px'}">
+        <div class="left_panel_header">
+            <h4>Job Portals</h4>
+        </div>
+        <div class="left_panel_body" style="padding-top:15px;">
+            <div ng-if="all_forms.length > 0">
+                <ul style="list-style-type: none; padding-left: 15px;">
+                    <li ng-repeat="form in all_forms">
+                        <span ng-bind="form.name" ng-click="select_form(form)"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {# Right panel #}
+    <div class="height100 right_panel" ng-style="{'margin-left': (left_panel_width+30) + 'px'}">
+        <div class="right_panel_header">
+            <h4 ng-if="active_form !== undefined" ng-bind="active_form.name"></h4>
+        </div>
+
+        <div class="right_panel_body right_panel_body_padding">
+            <div ng-if="active_form !== undefined" ng-include="active_form.template_name">
+            </div>
+        </div>
+    </div>
+
+</div>

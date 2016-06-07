@@ -1,0 +1,46 @@
+<nav class="navbar navbar-inverse" id="main_navbar" ng-controller="MenuController as menuCtrl">
+  {#<div class="container">#}
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/home/#/">Pype</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav" ng-if="menuCtrl.authenticationService.auth_token" ng-cloak>
+        <li ng-class="{active: (activeTab==='LoginController' || activeTab === 'ExplorerController') }"><a href="/home/#/main"><i class="fa fa-cloud"></i> Cloud Drive</a></li>
+        <li ng-class="{active: activeTab === 'DatasetsController'}"><a href="/home/#/datasets"><i class="fa fa-share"></i> Publish Data</a></li>
+        {# <li ng-class="{active: activeTab === 'StorageProvidersController'}"><a href="/home/#/storage_providers">Storage Providers</a></li> #}
+      </ul>
+      <span uib-dropdown on-toggle="toggle(open)" class="nav navbar-nav navbar-right" ng-if="menuCtrl.authenticationService.auth_token" ng-cloak>
+        <li>
+          <a href id="simple-dropdown" uib-dropdown-toggle>
+            <span ng-bind="menuCtrl.authenticationService.user_info.username">User</span> <i class="fa fa-caret-down"></i>
+          </a>
+        </li>
+        <ul class="uib-dropdown-menu" aria-labelledby="simple-dropdown">
+          <li>
+            <a href="#/profile" title="My profile"><i class="fa fa-user"></i> My profile</a>
+          </li>
+          <li>
+            <a href="#/storage_providers" title="Storage Providers"><i class="fa fa-cubes"></i> Storage Providers</a>
+          </li>
+          <li>
+            <a href="#/action_log" title="Action Log"><i class="fa fa-file-text"></i> Action Log</a>
+          </li>
+          <li>
+            <a href="#/logout" title="Logout"><i class="fa fa-sign-out"></i> Logout</a>
+          </li>
+        </ul>
+      </span>
+      {% comment %}
+      <ul class="nav navbar-nav navbar-right" ng-if="menuCtrl.authenticationService.auth_token" ng-cloak>
+        <li><a href="#/logout" title="Logout"><span class="fa fa-sign-out"></span> Logout</a></li>
+      </ul>
+      {% endcomment %}
+    </div><!--/.nav-collapse -->
+  {#</div> #}
+</nav>

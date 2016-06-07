@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="dismiss()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title">{% block title %}Create Object{% endblock %}</h4>
+</div>
+<form submit-function="submit({{ form.scope_prefix }})" name="{{ form.form_name}}">
+<div class="modal-body">
+    {# The extra field to select the file #}
+    <div class="has-feedback form-group">
+        <label class="control-label" for="id__file">file</label>
+        <input id="id__file" class="form-control" type="file" ngf-select ng-model="context.upload_file" name="upload_file">
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button
+            class="btn btn-primary"
+            ng-disabled="context.upload_file === null">
+        Submit
+    </button>
+</div>
+</form>

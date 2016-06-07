@@ -1,0 +1,229 @@
+/*
+
+This css is custom for:
+- a full page image cover
+- a white text on the middle
+- a green button for contact us.
+- a sticky footer
+
+Greatly inspired by slack.com and sticky footer by bootstrap.
+Most of the css of the landing page is directly taken from boostrap.
+
+by @Adrien_Brunet
+
+*/
+
+
+/* Sticky footer styles
+----------------------------------------------------------------------------- */
+
+html {
+  position: relative;
+  min-height: 100%;
+  font-size: 17px;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 150px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 150px;
+  margin-top:110px;
+  z-index: 10;
+}
+
+.footer .footer-dark {
+  height: 150px;
+  bottom: 0px;
+  padding: 40px 0px 40px 0px;
+  background-color: #2C2D30;
+}
+
+.same_color_than_footer {
+  background-color: #2C2D30;
+}
+
+footer .content {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 40px 0px 40px 0px;
+  z-index: 10;
+}
+
+footer li {
+  list-style-type: none;
+}
+
+footer li a {
+  color: #AAA !important;
+}
+
+.trick-css {
+  position: relative;
+  height:150px;
+}
+
+.gradient {
+  z-index: 9;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 260px;
+  background: transparent linear-gradient(to bottom, rgba(44, 45, 48, 0) 0px, #2C2D30 45%) repeat scroll 0% 0%;
+}
+
+/* Logo and background
+----------------------------------------------------------------------------- */
+
+.full-pype {
+  background: url('/static/img/nasa-background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.full-westlife {
+  background: url('/static/img/westlife-background2.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.full {
+  background: url('/static/img/teky-background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.full-meteospace {
+  background: url('/static/img/meteospace-background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.logo {
+  height: 60px;
+}
+
+/* Text in the middle
+----------------------------------------------------------------------------- */
+
+a {
+  color: white !important;
+}
+
+.presentation-landing-page {
+  z-index: 11;
+  margin-top: 250px;
+  color: white !important;
+  background-color: transparent !important;
+  text-align: center;
+}
+
+.presentation-landing-page h1 {
+  font-size: 3.4rem;
+}
+
+.presentation-description h3 {
+  font-size: 1.3rem;
+}
+
+.landing-green-button {
+  background: #56B68B none repeat scroll 0%;
+  padding: 5px 25px 10px 25px;
+}
+
+.nobackground {
+  background: transparent none repeat scroll 0%;
+}
+
+nav.top ul {
+  list-style-type: none;
+  margin: 0 20px 0 0;
+  padding: 0;
+  float: right;
+  line-height: 70px;
+}
+
+nav.top ul li {
+  display: inline-block;
+}
+
+nav.top ul a {
+  color: #FFF;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  margin-left: 9px;
+  position: relative;
+  cursor: pointer;
+  line-height: 1em;
+  padding: 8px 10px 9px;
+  border-radius: 5px;
+  opacity: .8;
+}
+
+nav.top ul a:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, .1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .05);
+}
+
+.presentation-text {
+  background-color: rgba(0, 0, 0, 0.8);
+  margin: 50px;
+  min-height: 600px;
+  border-radius: 15px;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.9);
+  padding: 15px;
+}
+
+.presentation-text h3 {
+  color: #FFF;
+  text-align: center;
+}
+
+.presentation-text ul {
+  list-style-type: none;
+}
+
+.presentation-text .presentation-institution {
+  margin-bottom: 30px;
+}
+
+.presentation-text .presentation-institution h4 a {
+  color: #FFF;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.presentation-text .presentation-institution p, .presentation-text .presentation-institution ul {
+  list-style-type: initial;
+  color: #CCC;
+}
+
+.acknowledgement-notice {
+  background-color: rgba(0, 0, 0, 0.8);
+  margin: 50px;
+  border-radius: 15px;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.9);
+  padding: 15px;
+}

@@ -1,0 +1,13 @@
+{% extends "angular/generics/modal.html" %}
+{% block modal_title %}Select File{% endblock %}
+{% block modal_body %}
+<div ng-controller="SelectFileController">
+    <p>Selected file: <span ng-bind="selected_file.filename"></span></p>
+    <h3>Current folder: <span ng-bind="active_folder.name"></span></h3>
+    <ul>
+        <li ng-if="active_folder"><a ng-click="select_folder_by_id(active_folder.parent)">..</a></li>
+        <li ng-repeat="folder in active_subfolders"><a ng-click="select_folder(folder)"><span ng-bind="folder.name"></span></a></li>
+        <li ng-repeat="datafile in active_datafiles"><a ng-click="select_file(datafile)"><span ng-bind="datafile.filename"></span></a></li>
+    </ul>
+</div>
+{% endblock %}

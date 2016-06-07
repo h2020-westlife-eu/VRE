@@ -1,0 +1,5 @@
+<a ng-click="switch_collapse_folder(folder)"><i ng-class="{fa: true, 'fa-caret-right': folders_collapse[folder.pk], 'fa-caret-down': !folders_collapse[folder.pk]}"></i> </a><a ng-click="select_folder(folder)" ng-bind="folder.name"></a>
+<ul style="list-style-type: none; padding-left: 15px;" ng-show="!folders_collapse[folder.pk]">
+    <li ng-repeat="folder in folders|folderIsSubfolderOf:folder" ng-class="{active: folder.pk === active_folder_pk}" ng-include="'folder_hierarchy.html'"></li>
+    {# <li ng-click="open_create_folder_modal(folder.pk)"><i class="fa fa-plus"></i> folder</li> #}
+</ul>

@@ -1,0 +1,28 @@
+<div class="container" style="width:100%;">
+    <div class="row" style="min-height: 40px;"></div>
+
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <div class="center">
+                <ng-messages for="profileCtrl.messages" role="alert">
+                    <ng-message when="changePasswordSuccess" class="alert alert-success">Password has been updated successfully!</ng-message>
+                </ng-messages>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title"><b>My Profile</b></p>
+                </div>
+                <div class="panel-body">
+                    <ul class='no-bullet'>
+                        <li><b>Username:</b> <span ng-bind="profileCtrl.user.username"></span></li>
+                        <li><b>Email:</b> <span ng-bind="profileCtrl.user.email"></span></li>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-warning pull-right" ng-click="profileCtrl.openChangePasswordModal();"><i class="fa fa-key"></i> Change password</button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

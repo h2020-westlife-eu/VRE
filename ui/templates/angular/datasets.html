@@ -1,0 +1,81 @@
+<div class="height100">
+    {# Left bar: The toolbar #}
+    <div class="height100" id="toolbar_left">
+
+    </div>
+
+    {# Left panel: The list of datasets #}
+    <div class="height100 left_panel">
+        <div class="left_panel_header">
+            <h4>Datasets</h4>
+            <span class="panel-primary panel-heading">
+            <button class="btn btn-primary btn-xs subheader_button" ng-click="open_create_dataset_modal()"><i class="fa fa-plus"></i> New</button>
+            </span>
+        </div>
+
+        <div class="left_panel_body" style="padding-left:0px;">
+            <div ng-if="datasets.length > 0">
+                <table class="table table-hover table-condensed">
+                    <tbody>
+                        <tr ng-repeat="dataset in datasets" ng-class="{info: dataset.pk === active_dataset_pk}">
+                            <td ng-click="select_dataset(dataset)" style="padding-left:15px;margin-left:-5px;">{% verbatim %}{{ dataset.name }}{% endverbatim %}</td>
+                            <td>
+                                <span class="pull-right">
+                                    <a ng-if="!dataset.published" ng-click="open_publish_dataset_modal(dataset)" class="hand-cursor"><i class="fa fa-share" title="Publish"></i> </a>
+                                    <a ng-if="dataset.published" ng-click="open_unpublish_dataset_modal(dataset)" class="hand-cursor"><i class="fa fa-times" title="Unpublish"></i> </a>
+                                    <a ng-if="dataset.published" ng-click="open_share_url_modal(dataset)" class="hand-cursor"><i class="fa fa-download" title="Download"></i> </a>
+                                    <a ng-click="open_update_dataset_modal(dataset)" class="hand-cursor"><i class="fa fa-pencil" title="Rename"></i> </a>
+                                    <a ng-click="open_delete_dataset_modal(dataset)" class="hand-cursor"><i class="fa fa-times" title="Delete"></i> </a>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-if="datasets.length === 0" id="no_datasets">
+                <p><i class="fa fa-info-circle"></i> No dataset created yet.</p>
+            </div>
+        </div>
+    </div>
+
+    {# Right panel: The contents of the selected dataset #}
+    <div class="height100 right_panel">
+        <div class="right_panel_header">
+            <h4 ng-if="active_dataset_pk !== undefined" ng-bind="active_dataset.name"></h4>
+            <button ng-if="active_dataset_pk !== undefined && !active_dataset.published" class="btn btn-default btn-xs subheader_button" ng-click="open_add_datafile_to_dataset_modal(active_dataset);"><i class="fa fa-plus"></i> Add file</button>
+        </div>
+        <div class="right_panel_body_padding">
+            <div ng-if="active_datafiles.length > 0">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>File</th>
+                            <th style="width: 220px;">Added</th>
+                            <th style="width: 100px;">Size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="datafile in active_datafiles">
+                            <td ng-bind="datafile.source_path"></td>
+                            <td ng-bind="datafile.modified_at|displayDate"></td>
+                            <td ng-bind="datafile.size|displaySize"></td>
+                            {% comment %}
+                            <td>
+                                <a ng-href="/api/datafiles/{% verbatim %}{{ datafile.pk }}{% endverbatim %}/download/" target="_self"><i class="fa fa-download"></i> </a>
+                                <a ng-click="open_update_datafile_modal(datafile)"><i class="fa fa-pencil"></i> </a>
+                                <a ng-click="open_delete_datafile_modal(datafile)"><i class="fa fa-times"></i> </a>
+                            </td>
+                            {% endcomment %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p ng-if="active_datafiles.length === 0 && active_dataset_pk !== undefined" class="no_datafiles">
+                No datafile added to this dataset yet. <a ng-click="open_add_datafile_to_dataset_modal(active_dataset);">Add one</a>
+            </p>
+            <div ng-if="active_dataset_pk === undefined" class="no_datafiles">
+                <p><i class="fa fa-info-circle"></i> Select a dataset to view associated files</p>
+            </div>
+        </div>
+    </div>
+</div>

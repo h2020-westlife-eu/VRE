@@ -1,0 +1,164 @@
+<form>
+    <div class="form-group">
+        <label for="runname">Name</label>
+        <input type="text" class="form-control" id="runname" name="runname" value="">
+    </div>
+    <hr>
+    <div>
+        <h4>First Molecule</h4>
+        <h5>Structure Definition</h5>
+        <div class="form-group">
+            <label for="p1-pdb-mode">Where is the structure provided?</label>
+            <select name="p1-pdb-mode" id="p1-pdb-mode" class="form-control">
+                <option selected="" value=""></option>
+                <option value="submit">I am submitting it</option>
+                <option value="download">Download it from the PDB</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="p1-pdb-chain">Which chain of the structure must be used?</label>
+            <select name="p1-pdb-chain" id="p1-pdb-chain" class="form-control">
+                <option selected="" value=""></option>
+                <option value="All">All</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                <option value="H">H</option>
+                <option value="I">I</option>
+                <option value="J">J</option>
+                <option value="K">K</option>
+                <option value="L">L</option>
+                <option value="M">M</option>
+                <option value="N">N</option>
+                <option value="O">O</option>
+                <option value="P">P</option>
+                <option value="Q">Q</option>
+                <option value="R">R</option>
+                <option value="S">S</option>
+                <option value="T">T</option>
+                <option value="U">U</option>
+                <option value="V">V</option>
+                <option value="W">W</option>
+                <option value="X">X</option>
+                <option value="Y">Y</option>
+                <option value="Z">Z</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="p1-pdb-pdbfile">PDB structure to submit</label>
+            <!-- Select file -->
+        </div>
+        <div class="form-group">
+            <label for="p1-pdb-code">or: PDB code to download</label>
+            <input maxlength="4" name="p1-pdb-code" id="p1-pdb-code" type="text" value="" class="form-control">
+        </div>
+        <h5>Restraint definition</h5>
+        <h5>Data to drive the docking</h5>
+        <h5>Please supply residues as comma-separated lists of residue numbers</h5>
+        <div class="form-group">
+            <label for="p1-r-activereslist">Active residues (directly involved in the interaction)</label>
+            <input name="p1-r-activereslist" id="p1-r-activereslist" type="text" class="form-control" value="">
+        </div>
+        <div class="form-group">
+            <label for="p1-r-passivelist">Passive residues (surrounding surface residues)</label>
+            <input name="p1-r-passivelist" id="p1-r-passivelist" type="text" class="form-control" value="">
+        </div>
+        <div class="form-group">
+            <label for="p1-r-auto_passive">Define passive residues automatically around the active residues</label>
+            <input name="p1-r-auto_passive" id="p1-r-auto_passive" type="checkbox" value="">
+        </div>
+        <div class="form-group">
+            <label for="p1-moleculetype">What kind of molecule are you docking?</label>
+            <select name="p1-moleculetype" id="p1-moleculetype">
+                <option selected="" value="Protein">Protein/peptide/ligand</option>
+                <option value="Protein-DNA">Protein-DNA complex</option>
+                <option value="Protein-RNA">Protein-RNA complex</option>
+                <option value="DNA">DNA</option>
+                <option value="RNA">RNA</option>
+            </select>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <h4>Second Molecule</h4>
+        <h5>Structure Definition</h5>
+        <div class="form-group">
+            <label for="p2-pdb-mode">Where is the structure provided?</label>
+            <select name="p2-pdb-mode" id="p2-pdb-mode" class="form-control">
+                <option selected="" value=""></option>
+                <option value="submit">I am submitting it</option>
+                <option value="download">Download it from the PDB</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="p2-pdb-chain">Which chain of the structure must be used?</label>
+            <select name="p2-pdb-chain" id="p2-pdb-chain" class="form-control">
+                <option selected="" value=""></option>
+                <option value="All">All</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                <option value="H">H</option>
+                <option value="I">I</option>
+                <option value="J">J</option>
+                <option value="K">K</option>
+                <option value="L">L</option>
+                <option value="M">M</option>
+                <option value="N">N</option>
+                <option value="O">O</option>
+                <option value="P">P</option>
+                <option value="Q">Q</option>
+                <option value="R">R</option>
+                <option value="S">S</option>
+                <option value="T">T</option>
+                <option value="U">U</option>
+                <option value="V">V</option>
+                <option value="W">W</option>
+                <option value="X">X</option>
+                <option value="Y">Y</option>
+                <option value="Z">Z</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="p2-pdb-pdbfile">PDB structure to submit</label>
+            <!-- Select file -->
+        </div>
+        <div class="form-group">
+            <label for="p2-pdb-code">or: PDB code to download</label>
+            <input maxlength="4" name="p2-pdb-code" id="p2-pdb-code" type="text" value="" class="form-control">
+        </div>
+        <h5>Restraint definition</h5>
+        <h5>Data to drive the docking</h5>
+        <h5>Please supply residues as comma-separated lists of residue numbers</h5>
+        <div class="form-group">
+            <label for="p2-r-activereslist">Active residues (directly involved in the interaction)</label>
+            <input name="p2-r-activereslist" id="p2-r-activereslist" type="text" class="form-control" value="">
+        </div>
+        <div class="form-group">
+            <label for="p2-r-passivelist">Passive residues (surrounding surface residues)</label>
+            <input name="p2-r-passivelist" id="p2-r-passivelist" type="text" class="form-control" value="">
+        </div>
+        <div class="form-group">
+            <label for="p2-r-auto_passive">Define passive residues automatically around the active residues</label>
+            <input name="p2-r-auto_passive" id="p2-r-auto_passive" type="checkbox" value="">
+        </div>
+        <div class="form-group">
+            <label for="p2-moleculetype">What kind of molecule are you docking?</label>
+            <select name="p2-moleculetype" id="p2-moleculetype">
+                <option selected="" value="Protein">Protein/peptide/ligand</option>
+                <option value="Protein-DNA">Protein-DNA complex</option>
+                <option value="Protein-RNA">Protein-RNA complex</option>
+                <option value="DNA">DNA</option>
+                <option value="RNA">RNA</option>
+            </select>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,73 @@
+{% load js_config %}
+{% js_config %}
+
+{% include "angular/auth/all.html" %}
+{% include "angular/jobportals/all.html" %}
+
+<script type="text/ng-template" id="datasets.html">
+    {% include "angular/datasets.html" %}
+</script>
+<script type="text/ng-template" id="dataset_form.html">
+    {% include "angular/dataset_form.html" with form=dataset_form %}
+</script>
+<script type="text/ng-template" id="dataset_publish.html">
+    {% include "angular/dataset_publish.html" %}
+</script>
+<script type="text/ng-template" id="dataset_unpublish.html">
+    {% include "angular/dataset_unpublish.html" %}
+</script>
+<script type="text/ng-template" id="dataset_share_url_modal.html">
+    {% include "angular/dataset_share_url_modal.html" %}
+</script>
+
+<script type="text/ng-template" id="explorer.html">
+    {% include "angular/explorer.html" %}
+</script>
+<script type="text/ng-template" id="folder_hierarchy.html">
+    {% include "angular/folder_hierarchy.html" %}
+</script>
+<script type="text/ng-template" id="datafile_form.html">
+    {% include "angular/datafile_form.html" with form=datafile_form %}
+</script>
+<script type="text/ng-template" id="datafile_update_form.html">
+    {% include "angular/datafile_update_form.html" with form=datafile_update_form %}
+</script>
+<script type="text/ng-template" id="folder_form.html">
+    {% include "angular/folder_form.html" with form=folder_form %}
+</script>
+
+<script type="text/ng-template" id="storage_providers.html">
+    {% include "angular/storage_providers.html" %}
+</script>
+<script type="text/ng-template" id="s3provider_form.html">
+    {% include "angular/s3provider_form.html" with form=s3provider_form %}
+</script>
+<script type="text/ng-template" id="gdriveprovider_form.html">
+    {% include "angular/gdriveprovider_form.html" with form=gdriveprovider_form %}
+</script>
+<script type="text/ng-template" id="b2dropprovider_form.html">
+    {% include "angular/b2dropprovider_form.html" with form=b2dropprovider_form %}
+</script>
+<script type="text/ng-template" id="dropboxprovider_form.html">
+    {% include "angular/dropboxprovider_form.html" with form=dropboxprovider_form %}
+</script>
+
+{% comment %}
+<script type="text/ng-template" id="action_log.html">
+    {% include "angular/action_log.html" %}
+</script>
+{% endcomment %}
+
+<script type="text/ng-template" id="delete_form.html">
+    {% include "angular/delete_form.html" %}
+</script>
+<script type="text/ng-template" id="modal_delete_form.html">
+    {% include "angular/modal_delete_form.html" %}
+</script>
+
+<script type="text/ng-template" id="select_file_widget.html">
+    {% include "angular/select_file_widget.html" %}
+</script>
+<script type="text/ng-template" id="select_file_form.html">
+    {% include "angular/select_file_form.html" with form=dataset_add_file_form %}
+</script>

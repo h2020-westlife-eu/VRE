@@ -1,0 +1,62 @@
+<div class="height100">
+    {# Left bar: The toolbar #}
+    <div class="height100" id="toolbar_left">
+
+    </div>
+
+    {# Right panel: The contents of the selected dataset #}
+    <div class="height100 right_panel">
+        <div class="right_panel_header" style="padding-right:15px">
+            <h4><b>Storage Accounts</b></h4>
+            <div class="btn-group btn-group-xs pull-right header_button_height" role='group' aria-label='none'>
+                <div class="btn-group" uib-dropdown dropdown-append-to-body>
+                    <button type="button" id="btn-append-to-body" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
+                        <i class="fa fa-plus"></i> Add a Provider
+                    </button>
+                    <ul class="uib-dropdown-menu" role="menu" aria-labelledby="btn-append-to-body">
+                        <li ng-click="open_create_s3_provider_modal()" role="menuitem">
+                            <a class="hand-cursor">Amazon S3</a>
+                        </li>
+                        <li ng-click="open_create_gdrive_provider_modal()" role="menuitem">
+                            <a class="hand-cursor">Google Drive</a>
+                        </li>
+                        <li ng-click="open_create_b2drop_provider_modal()" role="menuitem">
+                            <a class="hand-cursor">EUDAT/B2Drop</a>
+                        </li>
+                        <li ng-click="open_create_dropbox_provider_modal()" role="menuitem">
+                            <a class="hand-cursor">Dropbox</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="right_panel_body right_panel_body_padding">
+            <div ng-if="storage_accounts.length > 0">
+                <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Utilization</th>
+                            <th>Unlink</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="storage_account in storage_accounts">
+                            <td ng-bind="storage_account.display_name"></td>
+                            <td ng-if="!storage_account.sync_in_progress" ng-bind="storage_account.readable_validation_state"></td>
+                            <td ng-if="storage_account.sync_in_progress">Syncing</td>
+                            <td><span ng-if="storage_account.validated"><span ng-bind="storage_account.utilization|displaySize">0</span><span ng-if="storage_account.quota !== null"> out of <span ng-bind="storage_account.quota|displaySize">0</span></span></span></td>
+                            <td>
+                                <a ng-click="open_delete_provider_modal(storage_account)" class="hand-cursor"><i class="fa fa-times hand-cursor"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p ng-if="storage_accounts.length === 0" class="no_datafiles">
+                <i class="fa fa-info-circle"></i> No storage account added yet.
+            </p>
+        </div>
+    </div>
+</div>

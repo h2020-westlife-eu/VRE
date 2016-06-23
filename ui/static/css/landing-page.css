@@ -227,3 +227,7 @@ nav.top ul a:hover {
   box-shadow: 0 15px 20px rgba(0, 0, 0, 0.9);
   padding: 15px;
 }
+
+.shadow-black {
+  text-shadow: 2px 2px 4px #000, 5px 5px 10px #444;
+}

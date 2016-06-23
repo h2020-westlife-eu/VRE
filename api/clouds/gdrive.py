@@ -32,11 +32,6 @@ FOLDER_MIMETYPE = "application/vnd.google-apps.folder"
 
 
 def get_flow(state=None):
-    # flow = client.flow_from_clientsecrets(
-    #     CLIENT_SECRET_FILE,
-    #     scope=SCOPES,
-    #     redirect_uri=REDIRECT_URI
-    # )
 
     client_id = settings.GOOGLE_DRIVE_CLIENT_ID
     client_secret = settings.GOOGLE_DRIVE_CLIENT_SECRET
@@ -106,10 +101,6 @@ def check_gdrive_credentials(provider):
     drive = get_pydrive_object(provider)
 
     drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
-
-    # drive_service = step3_get_drive_service(provider.credentials)
-    #
-    # drive_service.files().list().execute()
 
 
 def upload_file_to_gdrive(datafile, provider, tempfile_path):

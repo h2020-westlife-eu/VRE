@@ -43,6 +43,14 @@ from api.clouds.dbox import (
     resync_from_dropbox,
     upload_file_to_dropbox,
 )
+from api.clouds.wl_webdav import (
+    check_webdav_credentials,
+    create_folder_on_webdav,
+    delete_file_from_webdav,
+    retrieve_file_from_webdav,
+    resync_from_webdav,
+    upload_file_to_webdav,
+)
 from api.clouds import dummy
 
 from api.serializers import UserStorageAccountSerializer
@@ -75,6 +83,14 @@ DISPATCH_CALLS = {
         'delete': delete_file_from_b2drop,
         'resync': resync_from_b2drop,
         'create_folder': create_folder_on_b2drop,
+    },
+    'WL_WEBDAV_PROVIDER': {
+        'upload': upload_file_to_webdav,
+        'check_credentials': check_webdav_credentials,
+        'retrieve': retrieve_file_from_webdav,
+        'delete': delete_file_from_webdav,
+        'resync': resync_from_webdav,
+        'create_folder': create_folder_on_webdav,
     },
     'DROPBOX': {
         'upload': upload_file_to_dropbox,

@@ -324,6 +324,16 @@ function StorageProvidersController($scope, $http, $window, stdModals, StoragePr
         );
     };
 
+    $scope.open_create_wlwebdav_provider_modal = function () {
+        stdModals.open_create_update_modal(
+            'wlwebdavprovider_form.html',
+            'dj_wlwebdavprovider',
+            'wlwebdavprovider_form',
+            undefined,
+            StorageProviderManager.create_wlwebdav_provider
+        );
+    };
+
     $scope.open_delete_provider_modal = function (obj) {
         stdModals.open_delete_modal(obj, StorageProviderManager.delete_provider);
     };

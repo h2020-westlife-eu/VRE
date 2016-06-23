@@ -22,6 +22,7 @@ from .models import (
     SyncOperation,
     UserAction,
     UserStorageAccount,
+    WLWebdavProvider,
 )
 
 
@@ -62,6 +63,13 @@ class UnvalidatedGDriveProviderFactory(GDriveProviderFactory):
 class B2DropProviderFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = B2DropProvider
+
+    validation_state = STORAGE_ACCOUNT_READY
+
+
+class WLWebdavProviderFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = WLWebdavProvider
 
     validation_state = STORAGE_ACCOUNT_READY
 

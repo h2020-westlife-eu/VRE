@@ -13,18 +13,19 @@ from .data import DATAFILE_READY
 
 from .models import (
     B2DropProvider,
+    Datafile,
     Dataset,
     DatasetFile,
-    Datafile,
     DropboxProvider,
     ExternalJobPortal,
     ExternalJobPortalForm,
     ExternalJobPortalSubmission,
     Folder,
     GDriveProvider,
+    S3Provider,
     UserAction,
     UserStorageAccount,
-    S3Provider
+    WLWebdavProvider
 )
 
 
@@ -283,6 +284,22 @@ class B2DropProviderSerializer(serializers.ModelSerializer):
                 message='You have already linked this account'
             )
         ]
+
+
+class WLWebdavProviderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WLWebdavProvider
+        fields = ('pk', 'name')
+        # extra_kwargs = {
+        #     'password': {'write_only': True}
+        # }
+        # validators = [
+        #     UniqueForUserValidator(
+        #         queryset=B2DropProvider.objects.all(),
+        #         field='username',
+        #         message='You have already linked this account'
+        #     )
+        # ]
 
 
 class UserActionSerializer(serializers.ModelSerializer):

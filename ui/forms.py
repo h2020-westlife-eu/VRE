@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.forms import PasswordChangeForm as PwdChangeForm
 
-from api.models import Dataset, Datafile, Folder, S3Provider, GDriveProvider, B2DropProvider, DropboxProvider
+from api.models import Dataset, Datafile, Folder, S3Provider, GDriveProvider, B2DropProvider, DropboxProvider, WLWebdavProvider
 
 from .mixins import AngularModelFormMixin, AngularFormMixin
 
@@ -133,6 +133,15 @@ class B2DropProviderForm(AngularModelFormMixin):
     class Meta:
         model = B2DropProvider
         fields = ('name', 'username', 'password',)
+
+
+class WLWebdavProviderForm(AngularModelFormMixin):
+    scope_prefix = 'dj_wlwebdavprovider'
+    form_name = 'wlwebdavprovider_form'
+
+    class Meta:
+        model = WLWebdavProvider
+        fields = ('name', )
 
 
 class DatasetAddFileForm(AngularFormMixin):

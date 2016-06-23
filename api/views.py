@@ -44,7 +44,8 @@ from .models import (
     GDriveProvider,
     UserAction,
     UserStorageAccount,
-    S3Provider
+    S3Provider,
+    WLWebdavProvider
 )
 from .permissions import IsOwner
 from .serializers import (
@@ -60,7 +61,8 @@ from .serializers import (
     GDriveProviderSerializer,
     UserActionSerializer,
     UserStorageAccountSerializer,
-    S3ProviderSerializer
+    S3ProviderSerializer,
+    WLWebdavProviderSerializer
 )
 
 from .tasks import check_credentials, upload_file, delete_file, retrieve_file, resync
@@ -422,6 +424,11 @@ class DropboxProviderViewSet(ViewsetInjectRequestMixin, CreateModelMixin, viewse
 
 class B2DropProviderViewSet(ViewsetInjectRequestMixin, ProviderCreateMixin, CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = B2DropProviderSerializer
+    permission_classes = (permissions.IsAuthenticated, IsOwner,)
+
+
+class WLWebdavProviderViewSet(ViewsetInjectRequestMixin, ProviderCreateMixin, CreateModelMixin, viewsets.GenericViewSet):
+    serializer_class = WLWebdavProviderSerializer
     permission_classes = (permissions.IsAuthenticated, IsOwner,)
 
 

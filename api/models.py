@@ -45,7 +45,7 @@ class UserStorageAccount(BaseModel):
         """
         :return: the concrete instance of this storage account
         """
-        for attr in ['s3provider', 'gdriveprovider', 'b2dropprovider', 'dropboxprovider', 'dummyprovider']:
+        for attr in ['s3provider', 'gdriveprovider', 'b2dropprovider', 'dropboxprovider', 'dummyprovider', 'wlwebdavprovider']:
             try:
                 inst = getattr(self, attr)
                 return inst
@@ -140,6 +140,14 @@ class B2DropProvider(UserStorageAccount):
 
     def __unicode__(self):
         return u'B2DropProvider'
+
+
+class WLWebdavProvider(UserStorageAccount):
+    type = 'WL_WEBDAV_PROVIDER'
+    root_folder_key = '/'
+
+    def __unicode__(self):
+        return u'WLWebdavProvider'
 
 
 class DropboxProvider(UserStorageAccount):

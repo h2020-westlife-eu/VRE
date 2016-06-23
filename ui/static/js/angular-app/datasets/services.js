@@ -171,7 +171,7 @@ function StorageContentsManager($q, Datafile, Folder, UserStorageAccount, isRoot
 StorageContentsManager.$inject = ['$q', 'Datafile', 'Folder', 'UserStorageAccount', 'isRootFolderFilter', 'fileIsInFolderFilter', 'folderIsSubfolderOfFilter'];
 
 
-function StorageProviderManager($q, UserStorageAccount, S3Provider, GDriveProvider, B2DropProvider, DropboxProvider) {
+function StorageProviderManager($q, UserStorageAccount, S3Provider, GDriveProvider, B2DropProvider, DropboxProvider, WLWebdavProvider) {
     "use strict";
     var StorageProviderManagerCl = function () {
         var that = this;
@@ -244,6 +244,15 @@ function StorageProviderManager($q, UserStorageAccount, S3Provider, GDriveProvid
             );
         };
 
+        that.create_wlwebdav_provider = function (data, pk) {
+            return WLWebdavProvider.create(data, pk).then(
+                function (rep) {
+                    UserStorageAccount.refreshAll();
+                    return rep;
+                }
+            );
+        };
+
         that.delete_provider = UserStorageAccount.delete;
     };
 
@@ -253,7 +262,7 @@ function StorageProviderManager($q, UserStorageAccount, S3Provider, GDriveProvid
 
     return smc;
 }
-StorageProviderManager.$inject = ['$q', 'UserStorageAccount', 'S3Provider', 'GDriveProvider', 'B2DropProvider', 'DropboxProvider'];
+StorageProviderManager.$inject = ['$q', 'UserStorageAccount', 'S3Provider', 'GDriveProvider', 'B2DropProvider', 'DropboxProvider', 'WLWebdavProvider'];
 
 
 function UploadTasksManager($q, Upload) {

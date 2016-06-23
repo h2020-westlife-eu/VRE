@@ -22,6 +22,7 @@
         ['GDriveProvider', 'gdriveproviders'],
         ['DropboxProvider', 'dropboxproviders'],
         ['B2DropProvider', 'b2dropproviders'],
+        ['WLWebdavProvider', 'wlwebdavproviders'],
         ['UserAction', 'useractions'],
         ['ExternalJobPortal', 'externaljobportals'],
         ['ExternalJobPortalForm', 'externaljobportalforms'],

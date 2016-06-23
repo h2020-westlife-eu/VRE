@@ -24,6 +24,7 @@ from .forms import (
     RegisterForm,
     ResetPasswordForm,
     S3ProviderForm,
+    WLWebdavProviderForm,
 )
 
 
@@ -84,6 +85,7 @@ class MainPage(TemplateView):
             'INTERCOM_APP_ID': settings.INTERCOM_APP_ID,
 
             'b2dropprovider_form': B2DropProviderForm(),
+            'wlwebdavprovider_form': WLWebdavProviderForm(),
             'change_password_form': PasswordChangeForm(user=user),
             'datafile_form': DatafileForm(),
             'datafile_update_form': DatafileUpdateForm(),

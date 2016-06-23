@@ -24,7 +24,7 @@ register('js_landing', js_landing)
 # Assets for the application
 css_main = Bundle(
     'bootstrap/dist/css/bootstrap.css',
-    'djangular/css/styles.css',
+    'djng/css/styles.css',
     'font-awesome/css/font-awesome.css',
 
     'css/datasets.css',
@@ -49,7 +49,7 @@ js_main = Bundle(
 
     'moment/min/moment-with-locales.js',
 
-    'djangular/js/django-angular.js',
+    'djng/js/django-angular.js',
 
     'stackframe/dist/stackframe.js',
     'error-stack-parser/dist/error-stack-parser.js',

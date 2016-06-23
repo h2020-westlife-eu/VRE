@@ -79,7 +79,7 @@ class SettingsBase(CelerySettings, BaseSettings):
             'rest_framework',
             'rest_framework.authtoken',
             'djoser',
-            'djangular',
+            'djng',
             'ui',
             'api',
             'rest_framework_swagger',

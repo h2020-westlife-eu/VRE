@@ -28,7 +28,7 @@ module.exports = function(config) {
 
             'moment/min/moment-with-locales.js',
 
-            'djangular/js/django-angular.js',
+            'djng/js/django-angular.js',
 
             'stackframe/dist/stackframe.js',
             'error-stack-parser/dist/error-stack-parser.js',

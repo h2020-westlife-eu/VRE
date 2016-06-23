@@ -5,9 +5,8 @@ angular.module('pype.jobportals', [
     'ngCookies',
     'ngRoute',
     'ui.bootstrap',
-    'ng.django.forms',
+    'djng.forms',
 //  'loggingModule',
-//  'ng.django.urls',  // url management by django-angular
     'ngFileUpload',
     'pype.datasets'
 ])

@@ -2,8 +2,7 @@ Django<1.9
 djangorestframework
 pytest-django
 pytest-cov
-# django-angular v0.8 change the lib name from djangular to djng
-django-angular<0.8
+django-angular
 celery[redis]
 djoser
 factory_boy

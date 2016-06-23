@@ -5,7 +5,6 @@ angular.module('stdmodals', [
     'ngRoute',
     'ui.bootstrap'
 //  'loggingModule',
-//  'ng.django.urls',  // url management by django-angular
 ])
 
     .config(['$httpProvider', function ($httpProvider) {

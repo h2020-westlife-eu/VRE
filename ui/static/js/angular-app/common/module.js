@@ -6,5 +6,4 @@ angular.module('common', [
     'ngMessages',
     'ui.bootstrap'
 //  'loggingModule',
-//  'ng.django.urls',  // url management by django-angular
 ]);

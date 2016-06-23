@@ -8,7 +8,6 @@ angular.module('auth', [
     'stdmodals',
     'ui.bootstrap'
 //  'loggingModule',
-//  'ng.django.urls',  // url management by django-angular
 ])
 
     .config(['$httpProvider', function ($httpProvider) {

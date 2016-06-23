@@ -5,11 +5,8 @@
 
 
 # THIRD PARTY APP
-from djangular.forms import NgModelFormMixin, NgFormValidationMixin
-from djangular.styling.bootstrap3.forms import (
-    Bootstrap3Form,
-    Bootstrap3ModelForm,
-)
+from djng.forms import NgModelFormMixin, NgFormValidationMixin
+from djng.styling.bootstrap3.forms import Bootstrap3Form, Bootstrap3ModelForm
 
 
 class AngularFormMixin(NgModelFormMixin, NgFormValidationMixin, Bootstrap3Form):

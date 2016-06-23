@@ -9,7 +9,7 @@ require('angular-animate');
 require('angular-messages');
 require('ng-file-upload');
 moment = require('moment');
-require('./djangular/js/django-angular.js');
+require('./djng/js/django-angular.js');
 require('error-stack-parser');
 SockJS = require('sockjs-client');
 require('./luna_websockets/js/angular/module.js');

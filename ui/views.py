@@ -40,7 +40,7 @@ class Root(TemplateView):
             return ['static_pages/landing_westlife.html']
         elif "pype" in domain:
             return ['static_pages/landing_pype.html']
-        return ['static_pages/landing_pype.html']
+        return ['static_pages/landing_westlife.html']
 
 
 def westlife_services(request):

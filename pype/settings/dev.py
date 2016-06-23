@@ -17,4 +17,5 @@ class SettingsDev(SettingsBase):
     def JS_CONFIG(self):
         conf = super(SettingsDev, self).JS_CONFIG()
         conf['WS_SERVER'] = 'http://192.168.56.102:22000/ws'
+        conf['ENABLE_REGISTER'] = True
         return conf

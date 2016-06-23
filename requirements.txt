@@ -18,5 +18,24 @@ ndg-httpsclient
 dropbox
 honcho
 
+django-assets
+django-classy-settings<2
+django-debreach
+django-debug-toolbar
+django-debug-toolbar-request-history
+django-statsd-mozilla
+psycopg2
+py-bcrypt
+statsd
+logstash_formatter
+closure>=20140110
+yuicompressor
+
+redis
+six
+sockjs-tornado
+tornado-redis
+tornado
+
 # Pip is dumb, and the version of backports.ssl_match_hostname published to pypi won't download.
 https://bitbucket.org/brandon/backports.ssl_match_hostname/get/tip.zip

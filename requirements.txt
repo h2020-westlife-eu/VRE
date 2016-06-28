@@ -22,7 +22,6 @@ django-assets
 django-classy-settings<2
 django-debreach
 django-debug-toolbar
-django-debug-toolbar-request-history
 django-statsd-mozilla
 psycopg2
 py-bcrypt

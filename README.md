@@ -9,8 +9,11 @@
 * redis-server
 * postgresql
 * NodeJS (See [https://nodejs.org/en/](https://nodejs.org/en/) for installation instructions)
-* supervisord
+* supervisor
 * uwsgi
+* postgresq-server-dev-all
+* python-pip python-dev
+* libffi-dev
 
 ##### Installation instructions
 

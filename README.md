@@ -56,3 +56,21 @@ $ python manage.py assets build
 The application should now be running on uwsgi://127.0.0.1:8101
 
 You will need to configure your frontend web server to be able to access it. For apache, we recommend [mod_proxy_uwsgi](http://uwsgi-docs.readthedocs.io/en/latest/Apache.html#mod-proxy-uwsgi). For nginx, see [https://www.nginx.com/resources/admin-guide/gateway-uwsgi-django/](https://www.nginx.com/resources/admin-guide/gateway-uwsgi-django/)
+
+
+
+### Extending the code
+
+##### Adding static pages
+
+A common task is to add static content pages to the site. The process to do this is the following:
+
+* Clone this repository and follow the instructions to get a development application running
+* Make a copy *ui/templates/static_pages/westlife/example.html* in the same directory, naming it however you want. Let's say *mycontent.html*
+* Edit this file to add your content inside the "static_content" block. Note that you do _not_ have to write the entire page structure (<html>, <head>, header menu, etc). Only your content. Django will fill in the rest using standardized templates.
+* Edit *ui/urls.py*. Here, we decide at what url your static page will be available. Add a line to the westlife_pages array, following the same structure as the "example" line. The example line says that /pages/example/ will point to *ui/templates/static_pages/westlife/example.html*. Replacing both 'example' should be all you have to do.
+* If all went well, your static page should be available in your development environment.
+* Commit everything and make a pull request
+
+TODO:
+* Update the menus so the pages can be found.

@@ -58,6 +58,11 @@ def internet_explorer(request):
     return render(request, 'static_pages/internet_explorer.html', context)
 
 
+def westlife_static_page(request, page_name='fweh.html'):
+    context = get_login_context(request)
+    return render(request, 'static_pages/westlife/%s' % page_name, context)
+
+
 #
 # Debug information
 #

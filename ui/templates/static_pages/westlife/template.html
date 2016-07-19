@@ -1,0 +1,37 @@
+{% extends "skeleton_angular.html" %}
+{% load assets %}{% load title_switcher %}
+{% block html_class %}class="full-westlife"{% endblock html_class%}
+{% block ng_app %}class="nobackground"{% endblock ng_app %}
+{% block stylesheets %}
+    {% assets "css_landing" %}
+        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
+{% endblock stylesheets %}
+
+{% block body %}
+{% include "blocks/navbar_root_westlife.html" %}
+
+<div class="presentation-text">
+    {% block static_content %}{% endblock %}
+</div>
+{% include "blocks/footer.html" %}
+{% endblock body %}
+
+{% block javascripts %}
+    {% assets "js_landing" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    <script type="text/javascript" charset="utf-8">
+        var div = document.createElement("div");
+        div.innerHTML = "<!--[if lt IE 9]><i></i><![endif]-->";
+        var isIeLessThan9 = (div.getElementsByTagName("i").length == 1);
+        if (isIeLessThan9) {
+            window.location = {% url 'internet_explorer' %};
+        }
+        // IF THE BROWSER IS INTERNET EXPLORER 10
+        if (navigator.appVersion.indexOf("MSIE 10") !== -1)
+          {
+              window.location = {% url 'internet_explorer' %};
+          }
+    </script>
+{% endblock javascripts %}

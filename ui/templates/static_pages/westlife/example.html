@@ -1,0 +1,23 @@
+{% extends "static_pages/westlife/template.html" %}
+
+{% block static_content %}
+<div>
+    <h3>Test</h3>
+    <p>This is some example text</p>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <style>
+        /* Add here any CSS rules you need */
+    </style>
+{% endblock stylesheets %}
+
+
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript">
+        /* Add here any javascript code you need */
+    </script>
+{% endblock javascripts %}

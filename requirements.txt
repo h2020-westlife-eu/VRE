@@ -6,7 +6,6 @@ django-angular
 celery[redis]
 djoser
 factory_boy
-django-rest-swagger
 mock
 
 

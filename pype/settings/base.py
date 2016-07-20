@@ -82,7 +82,6 @@ class SettingsBase(CelerySettings, BaseSettings):
             'djng',
             'ui',
             'api',
-            'rest_framework_swagger',
             'luna_websockets',
         )
 
@@ -139,12 +138,6 @@ class SettingsBase(CelerySettings, BaseSettings):
             'ENABLE_REGISTER': True,
             'WS_SERVER': 'http://127.0.0.1:22000/ws',
         }
-
-    # Django Rest Swagger
-    SWAGGER_SETTINGS = {
-        'exclude_namespaces': ['auth'],
-        'base_path': 'dev.pypeapp.com:8000/api/docs',
-    }
 
     # DJOSER
     DJOSER = {

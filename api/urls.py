@@ -30,8 +30,3 @@ router.register(r'externaljobportalsubmissions', views.ExternalJobPortalSubmissi
 urlpatterns = [
     url(r'^', include(router.urls)),
 ]
-
-if settings.DEBUG:
-    urlpatterns += [
-        url(r'^docs/', include('rest_framework_swagger.urls'))
-    ]

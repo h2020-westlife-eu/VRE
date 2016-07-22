@@ -1,6 +1,7 @@
 import os
 
 from django.conf import settings
+from django.contrib.auth import logout as django_logout
 from django.contrib.sites.models import Site
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -107,3 +108,12 @@ class MainPage(TemplateView):
         })
 
         return context
+
+
+def whoami(request):
+    return HttpResponse(request.user.username)
+
+
+def logout(request):
+    django_logout(request)
+    return HttpResponse('Logged out!')

@@ -19,5 +19,10 @@ urlpatterns = [
     url(r'^internet_explorer/', views.internet_explorer, name="internet_explorer"),
     url(r'^cgv/$', views.legal, name='cgv'),
     url(r'^build_info/$', views.BuildInfo.as_view()),
-    url(r'^pages/', include(westlife_pages))
+    url(r'^pages/', include(westlife_pages)),
+
+    url(r'^saml2/', include('djangosaml2.urls')),
+    url(r'^test/$', 'djangosaml2.views.echo_attributes'),
+    url(r'^whoami/$', views.whoami),
+    url(r'^logout/$', views.logout),
 ]

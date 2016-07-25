@@ -1,0 +1,16 @@
+project: pype
+python_version: python2
+test_commands:
+  - ./node_modules/karma/bin/karma start --single-run
+  - py.test
+modules:
+  - redis
+  - postgresql
+
+daemon_commands:
+  - name: celerybeat
+    command_line: celery -A pype beat
+  - name: celery_worker
+    command_line: celery -A pype worker -l info --concurrency 4 --maxtasksperchild 1000
+  - name: websockets
+    command_line: /bin/bash /home/pype-westlife-prod/manage.sh ws_server --listen_address '127.0.0.1' --listen_port 17002 --django_host "https://portal.west-life.eu"

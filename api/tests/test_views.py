@@ -403,14 +403,14 @@ class TestGDriveProviderViewSet(BaseAPITestCase):
             print(response.content)
             self.assertEquals(response.status_code, 201)
 
-    def test_gdriveprovider_get_redirect_to_accept_page(self):
-        with self.non_auth_scenario():
-            response = self.client.get('/api/gdriveproviders/%d/get_redirect_to_accept_page/' % self.gdriveprovider.pk, format='json')
-            self.assertEquals(response.status_code, 401)
-
-        with self.auth_scenario():
-            response = self.client.get('/api/gdriveproviders/%d/get_redirect_to_accept_page/' % self.gdriveprovider.pk, format='json')
-            self.assertEquals(response.status_code, 200)
+    # def test_gdriveprovider_get_redirect_to_accept_page(self):
+    #     with self.non_auth_scenario():
+    #         response = self.client.get('/api/gdriveproviders/%d/get_redirect_to_accept_page/' % self.gdriveprovider.pk, format='json')
+    #         self.assertEquals(response.status_code, 401)
+    #
+    #     with self.auth_scenario():
+    #         response = self.client.get('/api/gdriveproviders/%d/get_redirect_to_accept_page/' % self.gdriveprovider.pk, format='json')
+    #         self.assertEquals(response.status_code, 200)
 
 
 class TestDropboxProviderViewSet(BaseAPITestCase):

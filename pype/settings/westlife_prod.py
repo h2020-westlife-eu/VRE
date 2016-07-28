@@ -26,6 +26,16 @@ class SettingsWestLifeProd(SettingsBase):
     BASE_URL = 'https://portal.west-life.eu'
     MEDIA_ROOT = '/home/pype-westlife-prod/media/'
 
+    @property
+    def INSTALLED_APPS(self):
+        installed_apps = super(SettingsWestLifeProd, self).INSTALLED_APPS
+
+        installed_apps += (
+            'djangosaml2',
+        )
+
+        return installed_apps
+
     ADMINS = (
     )
 
@@ -39,3 +49,106 @@ class SettingsWestLifeProd(SettingsBase):
         conf['WS_SERVER'] = self.BASE_URL + '/ws'
         return conf
 
+    AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+        'djangosaml2.backends.Saml2Backend',
+    )
+
+    LOGIN_URL = '/saml2/login/'
+    SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+
+    import os.path
+    import saml2
+    import saml2.saml
+
+    CURDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'saml')
+    SAML_CONFIG = {
+        'xmlsec_binary': '/usr/bin/xmlsec1',
+
+        'entityid': 'https://portal.west-life.eu/saml2/metadata/',
+
+        'attribute_map_dir': os.path.join(CURDIR, 'attribute-maps'),
+
+        'service': {
+            'sp': {
+                'name': 'West-Life VRE Portal',
+                'name_id_format': saml2.saml.NAMEID_FORMAT_TRANSIENT,
+                # 'name_id_format': saml2.saml.NAMEID_FORMAT_PERSISTENT,
+                'endpoints': {
+                    'assertion_consumer_service': [
+                        ('https://portal.west-life.eu/saml2/acs/',
+                         saml2.BINDING_HTTP_POST),
+                    ],
+
+                    'single_logout_service': [
+                        ('https://portal.west-life.eu/saml2/ls/',
+                         saml2.BINDING_HTTP_REDIRECT),
+                        ('https://portal.west-life.eu/saml2/ls/post',
+                         saml2.BINDING_HTTP_POST),
+                    ],
+                },
+
+                "authn_requests_signed": True,
+                'allow_unsolicited': True,
+
+                'required_attributes': ['uid', 'mail', 'cn', 'sn'],
+
+                'optional_attributes': ['uid', 'email', 'eduPersonAffiliation'],
+            },
+        },
+
+        'metadata': {
+            'local': [os.path.join(CURDIR, 'instruct-providers.xml')],
+        },
+
+        'debug': 1,
+
+        'key_file': os.path.join(CURDIR, 'shib-prod-instruct.key'),
+        'cert_file': os.path.join(CURDIR, 'shib-prod-instruct.pem'),
+
+        'encryption_keypairs': [
+            {
+                'key_file': os.path.join(CURDIR, 'shib-prod-instruct.key'),
+                'cert_file': os.path.join(CURDIR, 'shib-prod-instruct.pem'),
+            }
+        ],
+
+        'contact_person': [
+            {
+                'given_name': 'Matthieu',
+                'sur_name': 'Riviere',
+                'company': 'Luna',
+                'email_address': 'mriviere@luna-technology.com',
+                'contact_type': 'technical'
+            },
+            {
+                'given_name': 'Matthieu',
+                'sur_name': 'Riviere',
+                'company': 'Luna',
+                'email_address': 'mriviere@luna-technology.com',
+                'contact_type': 'administrative'
+            }
+        ],
+        'organization': {
+            'name': [
+                ('West-Life', 'en')
+            ],
+            'display_name': [
+                ('West-Life', 'en')
+            ],
+            'url': [
+                ('https://portal.west-life.eu', 'en')
+            ]
+        },
+        'valid_for': 24
+    }
+
+    SAML_DJANGO_USER_MAIN_ATTRIBUTE = 'email'
+
+    SAML_ATTRIBUTE_MAPPING = {
+        'displayName': ('username',),
+        'mail': ('email',)
+        # 'givenName': ('first_name',),
+        # 'sn': ('last_name',),
+    }

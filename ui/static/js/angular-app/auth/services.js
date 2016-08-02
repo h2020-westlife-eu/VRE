@@ -16,6 +16,33 @@ function AuthenticationService($http, $window, $q, $rootScope, MessageManager) {
         });
     };
 
+    var login_ok = false;
+
+    authservice.login_without_token = function () {
+        $http.get('/auth/me/').then(
+            function (data) {
+                authservice.user_info = {
+                    'id': data.data.id,
+                    'username': data.data.username,
+                    'email': data.data.email,
+                    'created_at': 0
+                };
+
+                login_ok = true;
+
+                $rootScope.$emit('login', authservice.user_info);
+
+                authservice.loadPromise.resolve(data);
+            },
+            function () {
+                $window.location.href = '/accounts/login/';
+                //authservice.logout_with_token();
+                // Note: We don't reject the promise here! A failed login just means waitForLoad() keeps waiting
+            }
+        );
+    };
+
+    /*
     authservice.login_with_token = function (auth_token) {
         authservice.auth_token = auth_token;
         $http.defaults.headers.common.Authorization = 'Token ' + authservice.auth_token;
@@ -34,12 +61,14 @@ function AuthenticationService($http, $window, $q, $rootScope, MessageManager) {
                 authservice.loadPromise.resolve(data);
             },
             function () {
-                authservice.logout_with_token();
+                console.log('Logout with token');
+                //authservice.logout_with_token();
                 // Note: We don't reject the promise here! A failed login just means waitForLoad() keeps waiting
             }
         );
         return authservice.loadPromise.promise;
     };
+    */
 
     authservice.logout_with_token = function () {
         authservice.auth_token = undefined;
@@ -50,6 +79,7 @@ function AuthenticationService($http, $window, $q, $rootScope, MessageManager) {
         $window.location.reload();
     };
 
+    /*
     authservice.login = function (username, password) {
         return $http.post(
             '/auth/login/',
@@ -126,15 +156,10 @@ function AuthenticationService($http, $window, $q, $rootScope, MessageManager) {
     authservice.validate_token = function (token) {
         return authservice.login_with_token(token);
     };
+    */
 
     authservice.logout = function () {
-        return $http.post('/auth/logout/').then(
-            function () {
-                authservice.logout_with_token();
-
-                $rootScope.$emit('logout', {});
-            }
-        );
+        $window.location.href = '/accounts/logout/';
     };
 
     function auth_token_is_valid(auth_token) {
@@ -142,16 +167,18 @@ function AuthenticationService($http, $window, $q, $rootScope, MessageManager) {
     }
 
     authservice.is_logged_in = function () {
-        return auth_token_is_valid(authservice.auth_token);
+        return login_ok;
     };
 
     /*
      Try to restore the auth token and user_info from localStorage
     */
+    /*
     var stored_token = $window.localStorage.getItem('auth_token');
     if (auth_token_is_valid(stored_token)) {
         authservice.login_with_token(stored_token);
-    }
+    } */
+    authservice.login_without_token();
 
     return authservice;
 }

@@ -12,7 +12,7 @@ angular.module('dispatch', ['ng', 'ngRoute', 'ngAnimate', 'settings', 'common', 
                             'responseError': function (rejection) {
                                 if (rejection.status === 401) {
                                     console.log('Got 401. Redirecting to /login');
-                                    $location.path('/login');
+                                    $window.location('/login/');
                                 }
                                 return $q.reject(rejection);
                             }
@@ -103,7 +103,7 @@ angular.module('dispatch', ['ng', 'ngRoute', 'ngAnimate', 'settings', 'common', 
                 })
                 .otherwise({
                     // CAUTION: redirectTo doesn't fire $routeChangeStart, and so isn't affected by our catch-all redirection
-                    redirectTo: '/login'
+                    redirectTo: '/main'
                 });
 
 //                $locationProvider.html5Mode(true);

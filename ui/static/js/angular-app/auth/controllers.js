@@ -6,9 +6,10 @@ angular.module('auth')
     .controller('ResetPasswordController', ResetPasswordController)
     .controller('ProfileController', ProfileController);
 
-function LoginController($scope, $location, DjangoErrors, AuthenticationService, DatasetManager, StorageContentsManager, AppSettingsService) {
+function LoginController($scope, $location, $rootScope, DjangoErrors, AuthenticationService, DatasetManager, StorageContentsManager, AppSettingsService) {
     "use strict";
 
+    /*
     $scope.submit = function (data) {
         return AuthenticationService.login(data.username, data.password).then(
             function (res) {
@@ -23,15 +24,20 @@ function LoginController($scope, $location, DjangoErrors, AuthenticationService,
             }
         );
     };
+    */
+    $rootScope.$on('login', function () {
+        $location.path('/main');
+    });
 
     $scope.enable_register = AppSettingsService.ENABLE_REGISTER;
 
 }
-LoginController.$inject = ['$scope', '$location', 'DjangoErrors', 'AuthenticationService', 'DatasetManager', 'StorageContentsManager', 'AppSettingsService'];
+LoginController.$inject = ['$scope', '$location', '$rootScope', 'DjangoErrors', 'AuthenticationService', 'DatasetManager', 'StorageContentsManager', 'AppSettingsService'];
 
 
 function LogoutController($location, AuthenticationService) {
     "use strict";
+
     AuthenticationService.logout().then(
         function () {
             $location.path('/login');

@@ -10,12 +10,12 @@
       <a class="navbar-brand" href="/home/#/">Pype</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav" ng-if="menuCtrl.authenticationService.auth_token" ng-cloak>
+      <ul class="nav navbar-nav" ng-if="menuCtrl.authenticationService.is_logged_in()" ng-cloak>
         <li ng-class="{active: (activeTab==='LoginController' || activeTab === 'ExplorerController') }"><a href="/home/#/main"><i class="fa fa-cloud"></i> Cloud Drive</a></li>
         <li ng-class="{active: activeTab === 'DatasetsController'}"><a href="/home/#/datasets"><i class="fa fa-share"></i> Publish Data</a></li>
         {# <li ng-class="{active: activeTab === 'StorageProvidersController'}"><a href="/home/#/storage_providers">Storage Providers</a></li> #}
       </ul>
-      <span uib-dropdown on-toggle="toggle(open)" class="nav navbar-nav navbar-right" ng-if="menuCtrl.authenticationService.auth_token" ng-cloak>
+      <span uib-dropdown on-toggle="toggle(open)" class="nav navbar-nav navbar-right" ng-if="menuCtrl.authenticationService.is_logged_in()" ng-cloak>
         <li>
           <a href id="simple-dropdown" uib-dropdown-toggle>
             <span ng-bind="menuCtrl.authenticationService.user_info.username">User</span> <i class="fa fa-caret-down"></i>
@@ -37,7 +37,7 @@
         </ul>
       </span>
       {% comment %}
-      <ul class="nav navbar-nav navbar-right" ng-if="menuCtrl.authenticationService.auth_token" ng-cloak>
+      <ul class="nav navbar-nav navbar-right" ng-if="menuCtrl.authenticationService.is_logged_in()" ng-cloak>
         <li><a href="#/logout" title="Logout"><span class="fa fa-sign-out"></span> Logout</a></li>
       </ul>
       {% endcomment %}

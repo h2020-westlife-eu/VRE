@@ -45,6 +45,8 @@ class SettingsBase(CelerySettings, BaseSettings):
             self.root('bower_components'),
         )
 
+    LOGIN_REDIRECT_URL = '/home/'
+
     MIDDLEWARE_CLASSES = (
         # Debreach content-length extension
         'debreach.middleware.RandomCommentMiddleware',
@@ -95,7 +97,7 @@ class SettingsBase(CelerySettings, BaseSettings):
             # 'rest_framework.authentication.BasicAuthentication',
             'rest_framework.authentication.TokenAuthentication',
 
-            # Session authentication is the one used during the tests at the moment
+            # Session authentication is used in production
             'rest_framework.authentication.SessionAuthentication',
         ),
         'NON_FIELD_ERRORS_KEY': '__all__',

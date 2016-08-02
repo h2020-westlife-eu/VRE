@@ -140,8 +140,7 @@ class SettingsWestLifeProd(SettingsBase):
             'url': [
                 ('https://portal.west-life.eu', 'en')
             ]
-        },
-        'valid_for': 24
+        }
     }
 
     SAML_DJANGO_USER_MAIN_ATTRIBUTE = 'email'

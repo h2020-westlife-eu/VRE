@@ -140,8 +140,7 @@ class SettingsDev(SettingsBase):
             'url': [
                 ('https://www.west-life.eu', 'en')
             ]
-        },
-        'valid_for': 24
+        }
     }
 
     SAML_DJANGO_USER_MAIN_ATTRIBUTE = 'username'

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XRD xmlns="http://docs.oasis-open.org/ns/xri/xrd-1.0"
+     xmlns:hm="http://host-meta.net/ns/1.0">
+ 
+    <hm:Host>portal.west-life.eu</hm:Host>
+    <hm:Host>west-life.eu</hm:Host>
+     
+   <!-- license, expressed several ways --> 
+    <Link rel="license"
+          href="http://creativecommons.org/licenses/by/4.0/">
+        <Title xml:lang="en-us">Site License Policy</Title>
+    </Link>
+    <Link rel="copyright"
+          href="http://creativecommons.org/licenses/by/4.0/">
+        <Title xml:lang="en-us">Site License Policy</Title>
+    </Link>
+    <Property type="http://purl.org/dc/rights">http://creativecommons.org/licenses/by/4.0/</Property>
+    
+    <Link rel="describedby"
+          template="http://about.west-life.eu/">
+        <Title xml:lang="en-us">About this portal</Title>
+    </Link>
+    
+    <Property type="http://purl.org/dc/terms/title">West-Life: Virtual Research Environment for Structural Biology</Property>
+    <Property type="http://purl.org/dc/contributor">"European Union (EU)" and "Horizon 2020"</Property>
+    <Property type="http://purl.org/dc/relation">info:eu-repo/grantAgreement/EC/H2020/675858/EU/West-Life/West-Life</Property>
+
+    
+    <!-- tags:
+    <Link rel="tag" href="" >
+        <Title xml:lang="en-us">About this portal</Title>
+    </Link>
+    
+    --> <!-- properties:
+    <Property type='http://example.com/version'>2.0</Property>
+    <Property type="http://oembed.com/spec/2.0/prop/scheme">http://www.example.com/content/*</Property>
+    -->
+</XRD>

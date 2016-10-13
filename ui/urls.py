@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^cgv/$', views.legal, name='cgv'),
     url(r'^build_info/$', views.BuildInfo.as_view()),
     url(r'^pages/', include(westlife_pages)),
+    url(r'^.well-known/host-meta', views.westlife_static_page, {'page_name': '.well-known/host-meta', 'render_kwargs': {'content_type': 'text/xml; charset=utf-8'}}),
 
     url(r'^accounts/login/', auth_views.login, name='login'),
     url(r'^accounts/logout/', auth_views.logout, { 'template_name': 'registration/logout.html' }, name='logout'),

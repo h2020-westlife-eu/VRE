@@ -95,6 +95,11 @@
 </li>
     
 <script>
+   var form = document.getElementById('searchform');
+   if (window.location.search) {
+       form.q.value = window.location.search.substring(1);
+       search();
+   }
    function render(results) {
      var container = document.getElementById('resultsContainer');
      console.log('hmm');
@@ -109,10 +114,13 @@
           container.appendChild(result);
       }   
    }
-   var form = document.getElementById('searchform');
    function search(event) {
        document.getElementById('resultsContainer').innerHTML = '';
-       event.preventDefault();
+       if (history.pushState) {
+         var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?'+form.q.value;
+         window.history.pushState({path:newurl},'',newurl);
+       }
+       if (event) {event.preventDefault();}
        var rq = new XMLHttpRequest();
        rq.onreadystatechange = function() {
          if(rq.readyState == 4){

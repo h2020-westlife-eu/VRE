@@ -88,12 +88,27 @@
       <p class="text-muted">The Tools and Data Services Registry lists software and databases of value to life scientists. 
       Please <a href="https://bio.tools/register">add new tools<a/>.
       </p>  
-         
-<div class="text-muted" id="results"></div>
-                    
-</div>
+</div>    
+      
+<h3>Found: <span id="count">0</span></h3>
+<li class="presentation-text" id="resultsContainer">
+</li>
     
 <script>
+   function render(results) {
+     var container = document.getElementById('resultsContainer');
+     console.log('hmm');
+     for (var i=0; i<results.length; i++) {
+          console.log(results[i])
+          var result = document.createElement('ol');
+          var link = document.createElement('a');
+          link.appendChild(document.createTextNode(results[i]['name']));
+          link.setAttribute('href',results[i]['homepage'] );
+          link.setAttribute('title',results[i]['description'] );
+          result.appendChild(link);
+          container.appendChild(result);
+      }   
+   }
    var form = document.getElementById('searchform');
    function search(event) {
        event.preventDefault();
@@ -101,9 +116,9 @@
        rq.onreadystatechange = function() {
          if(rq.readyState == 4){
              if (200===rq.status) {
-		alert(rq.responseText);
 		var response = JSON.parse(rq.responseText);
-		document.getElementById('results').innerHTML=response['count'];
+		document.getElementById('count').innerHTML=response['count'];
+		render(response['list']);
              } else {
                  alert('failed: '+rq.status);
                  console.log('Search failed, status: '+rq.status);

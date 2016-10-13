@@ -79,7 +79,7 @@
      
 <br />
                    
-<form id="searchform" method="get" action="https://bio.tools/"> 
+<form id="searchform" method="get" action="https://dev.bio.tools/api/tool/" > 
     <input name="q" type="text" id="query" tabindex="1" class="text" placeholder="refinement" >                          
     <input type="submit" tabindex="2" value="Quick Search" >    
     <a href="https://bio.tools/">Advanced Search</a>
@@ -89,21 +89,35 @@
       Please <a href="https://bio.tools/register">add new tools<a/>.
       </p>  
          
-<div class="text-muted" id="results"</a>
+<div class="text-muted" id="results"></div>
                     
 </div>
     
-
- 
-
-<div class="presentation-text">
-    
-<br />
-
-
-                    
-                    
-</div>
+<script>
+   var form = document.getElementById('searchform');
+   function search(event) {
+       event.preventDefault();
+       var rq = new XMLHttpRequest();
+       rq.onreadystatechange = function() {
+         if(rq.readyState == 4){
+             if (200===rq.status) {
+		alert(rq.responseText);
+		var response = JSON.parse(rq.responseText);
+		document.getElementById('results').innerHTML=response['count'];
+             } else {
+                 alert('failed: '+rq.status);
+                 console.log('Search failed, status: '+rq.status);
+             }
+	 }
+       }
+       rq.open("GET", form.action+'?q='+form.q.value, true);
+       rq.setRequestHeader('Accept', 'application/json');
+       rq.send();
+       return false;
+   }
+   
+   form.addEventListener("submit", search);
+</script>
     
 
  

@@ -111,6 +111,7 @@
    }
    var form = document.getElementById('searchform');
    function search(event) {
+       document.getElementById('resultsContainer').innerHTML = '';
        event.preventDefault();
        var rq = new XMLHttpRequest();
        rq.onreadystatechange = function() {

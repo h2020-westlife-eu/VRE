@@ -46,6 +46,7 @@ class SettingsBase(CelerySettings, BaseSettings):
         )
 
     LOGIN_REDIRECT_URL = '/home/'
+    LOGIN_URL = '/login/'
 
     MIDDLEWARE_CLASSES = (
         # Debreach content-length extension

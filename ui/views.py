@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth import logout as django_logout
 from django.contrib.sites.models import Site
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView
 
 from luna_django_commons.app.mixins import get_login_context
@@ -119,3 +119,10 @@ def whoami(request):
 def logout(request):
     django_logout(request)
     return HttpResponse('Logged out!')
+
+
+def switch_login(request):
+    if hasattr(settings, 'SAML_CONFIG'):
+        return redirect('saml2_login')
+    else:
+        return redirect('/home/#/login/')

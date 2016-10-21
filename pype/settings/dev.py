@@ -35,7 +35,6 @@ class SettingsDev(SettingsBase):
         'djangosaml2.backends.Saml2Backend',
     )
 
-    LOGIN_URL = '/saml2/login/'
     SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
     import os.path

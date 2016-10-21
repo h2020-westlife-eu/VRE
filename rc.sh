@@ -3,7 +3,7 @@
 VENV_DIR=".pyvenv"
 APP_NAME="pype"
 
-export DJANGO_MODE=Dev
+export DJANGO_MODE=LocalSqlite
 export DJANGO_SETTINGS_MODULE=${APP_NAME}.settings
 source "${VENV_DIR}/bin/activate"
 

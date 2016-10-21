@@ -18,7 +18,7 @@ def application_title():
     try:
         return Site.objects.get_current().name
     except:
-        return "Pype"
+        return "West-Life"
 
 
 @register.simple_tag
@@ -26,7 +26,7 @@ def domain_name():
     try:
         return Site.objects.get_current().domain
     except:
-        return 'pypeapp.com'
+        return 'portail.west-life.eu'
 
 
 @register.simple_tag

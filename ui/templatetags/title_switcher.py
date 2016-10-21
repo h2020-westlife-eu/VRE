@@ -40,9 +40,9 @@ def application_logo():
         elif "west-life" in domain:
             return static('img/westlife-logo.png')
         else:
-            return static('img/pype.png')
+            return static('img/westlife-logo.png')
     except:
-        return static('img/pype.png')
+        return static('img/westlife-logo.png')
 
 
 @register.simple_tag
@@ -56,6 +56,6 @@ def application_logo_white():
         elif "west-life" in domain:
             return static('img/westlife-logo.png')
         else:
-            return static('img/pype-white.png')
+            return static('img/westlife-logo.png')
     except:
-        return static('img/pype-white.png')
+        return static('img/westlife-logo.png')

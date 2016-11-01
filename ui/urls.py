@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^accounts/login/', auth_views.login, name='login'),
     url(r'^accounts/logout/', auth_views.logout, { 'template_name': 'registration/logout.html' }, name='logout'),
 
+    url(r'^login/', views.switch_login, name='switch_login'),
+
     url(r'^saml2/', include('djangosaml2.urls')),
     url(r'^test/$', 'djangosaml2.views.echo_attributes'),
     url(r'^whoami/$', views.whoami),

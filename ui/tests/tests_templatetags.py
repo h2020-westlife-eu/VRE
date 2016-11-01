@@ -17,21 +17,21 @@ class TemplateTagsTest(TestCase):
 
         for s in Site.objects.all():
             s.delete()
-        assert ts.application_title() == "Pype"
+        assert ts.application_title() == "West-Life"
 
     def test_domain_name(self):
         assert ts.domain_name() == 'example.com'
 
         for s in Site.objects.all():
             s.delete()
-        assert ts.domain_name() == "pypeapp.com"
+        assert ts.domain_name() == "portail.west-life.eu"
 
     def test_application_logo(self):
         site = Site.objects.all()[0]
 
         site.domain = "example.com"
         site.save()
-        assert ts.application_logo() == static('img/pype.png')
+        assert ts.application_logo() == static('img/westlife-logo.png')
 
         site.domain = "pypeapp.com"
         site.save()
@@ -42,7 +42,7 @@ class TemplateTagsTest(TestCase):
 
         site.domain = "example.com"
         site.save()
-        assert ts.application_logo_white() == static('img/pype-white.png')
+        assert ts.application_logo_white() == static('img/westlife-logo.png')
 
         site.domain = "pypeapp.com"
         site.save()

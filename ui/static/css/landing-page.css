@@ -195,6 +195,10 @@ nav.top ul a:hover {
   color: #CCC;
 }
 
+.presentation-text form {
+  color: #000;
+}
+
 .presentation-text h3 {
   color: #FFF;
   text-align: center;

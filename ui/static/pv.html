@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+   <base href="https://portal.west-life.eu/" />
+
+        <title>
+            West-Life: Protein Viewer
+        </title>
+
+
+
+	<!-- WL -->
+       <link rel="stylesheet" type="text/css" href="/static/css/_gen.20161027.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta name="description" content="Symhub">
+    <meta name="author" content="Luna Technology">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/img/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/img/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/img/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/img/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/img/favicons/apple-touch-icon-76x76.png">
+    <link rel="icon" type="image/png" href="/static/img/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/static/img/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/img/favicons/favicon-32x32.png" sizes="32x32">
+    <meta name="msapplication-TileColor" content="#da532c">
+
+    <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+    <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+    <!--[if IE 8 ]> <body class="ie ie8 ">
+    <style type="text/css">
+      .navbar form.search input,.sidebar-nav form.search input,.sidebar-label,.thumb-account{border: none;}
+      .thumb-account span {width: 2px;}
+      .sidebar-nav .form-inline { display: none;}
+    </style>
+    <![endif]-->
+
+    <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+
+    <!--[if gte IE 9]>
+      <style type="text/css">.gradient {filter: none;}</style>
+    <![endif]-->
+
+	<!-- /WL -->
+
+
+    </head>
+   <body class="nobackground">
+
+
+<nav class="top same_color_than_footer">
+    <a href="/">
+        <img class="logo" src="/static/img/westlife-logo.png" alt="brand logo">
+    </a>
+
+    <ul>
+
+        <li><a href="http://internal-wiki.west-life.eu">Internal Wiki</a></li>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="https://www.west-life.eu">About us</a></li>
+
+    </ul>
+</nav>
+<!-- Content starts here -->
+<div class="presentation-text" style="display: inline-block; overflow: hidden">
+
+  <div style="float:left">
+Choose a PDB file, one of these ways:
+<ul  ondrop="dropped(event)"
+   ondragover="event.preventDefault(); event.dataTransfer.dropEffect = 'copy';"
+   >
+  <li>
+    <input id="pdbid" title="type PDB id and press enter" placeholder="1r6a"
+    maxlength="4" size="4"
+    onchange="loadPdbFile('http://files.rcsb.org/view/'+this.value+'.pdb')"
+  />from PDB</li>
+  <li>
+    <input id="pdbid" title="type PDB id and press enter" placeholder="1r6a"
+    maxlength="4" size="4"
+    onchange="loadFromRedo(this.value)"
+  />from PDB-REDO</li>
+  <li><input id="fileElem" type="file" onchange="readPdb(this.files[0])" style="display:none" />
+    <label for="fileElem" style="text-decoration: underline">Browse...</label>
+  </li>
+  <li>Drag a file here.</li>
+</ul></div>
+
+  <div id=viewer style="float:right" ></div>
+  <a style="clear:both; display:block" href="http://superuser.com/questions/836832/how-can-i-enable-webgl-in-my-browser">How to enable WebGL</a>
+</div>
+<script type='text/javascript' src='https://cdn.rawgit.com/biasmv/pv/master/bio-pv.min.js'></script>
+<script type='text/javascript'>
+// override the default options with something less restrictive.
+var options = {
+  width: 600,
+  height: 600,
+  antialias: true,
+  quality : 'medium'
+  // background='black', outlineColor='white'
+};
+// insert the viewer under the Dom element with id 'gl'.
+var viewer = pv.Viewer(document.getElementById('viewer'), options);
+</script>
+<script type='text/javascript'>
+
+function readPdb(file) {
+  var reader = new FileReader();
+  reader.onerror = function (event) {alert('Sorry, unable to read file: '+event);}
+  reader.onload = function(e) {process( e.target.result ); };
+  reader.readAsText(file);
+}
+
+function dropped(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  var files = event.dataTransfer.files;
+  readPdb(files[0]);
+}
+
+
+// given the contents of a PDB file, show the structure
+function process(pdb) {
+  var structure = pv.io.pdb(pdb);
+  viewer.cartoon('protein', structure, { color : color.ssSuccession() });
+  viewer.centerOn(structure);
+  // TODO find any ligands
+  /*
+      var ligands = structure.select({ rnames : ['SAH', 'RVP'] });
+      viewer.ballsAndSticks('ligands', ligands);
+      viewer.centerOn(structure);
+  }); */
+}
+
+function loadFromRedo(pdbid) {
+  loadPdbFile('http://www.cmbi.ru.nl/pdb_redo/'
+  +pdbid.substring(1,3)+'/'
+  +pdbid+'/'+pdbid+'_final.pdb')
+}
+
+
+function loadPdbFile(url) {
+  var rq = new XMLHttpRequest();
+  rq.open("GET",url);
+
+  rq.addEventListener("error",function(event) {alert('Sorry, unable to load: '+url+event)})
+  rq.addEventListener("load",function(event) {
+  if (200==rq.status) {
+    process(rq.responseText);
+  } else {
+    alert('Sorry, response: '+rq.status+' when trying to get: '+url);
+  }
+  });
+  rq.send()
+
+}
+
+// load  once the DOM has finished loading. That's
+// the earliest point the WebGL context is available.
+</script>
+
+
+    </body>
+</html>

@@ -145,8 +145,8 @@ class SettingsWestLifeProd(SettingsBase):
     SAML_DJANGO_USER_MAIN_ATTRIBUTE = 'email'
 
     SAML_ATTRIBUTE_MAPPING = {
-        'displayName': ('username',),
-        'mail': ('email',)
+        # 'displayName': ('username',),
+        'mail': ('email', 'username')
         # 'givenName': ('first_name',),
         # 'sn': ('last_name',),
     }

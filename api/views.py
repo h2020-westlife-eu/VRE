@@ -2,6 +2,7 @@ import os
 import tempfile
 import traceback
 
+import sys
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.core import signing
@@ -468,3 +469,32 @@ class ExternalJobPortalSubmissionViewSet(ViewsetInjectRequestMixin, CreateModelM
     def perform_create(self, serializer):
         v = serializer.save(owner=self.request.user)
         UserAction.log(self.request.user, ACTION_TYPE_JOBPORTAL_SUBMIT, {'portal': v.target.name})
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.contrib.sessions.models import Session
+from django.contrib.auth.models import User
+from serializers import UserSerializer
+
+#from rest_framework import mixins
+#retrieving user info from the logged in users with session id - usually sent via cookie
+#TODO should be exposed only to localhost queries - queries from another process of the same machine (e.g. Virtual folder metadataservice)
+class UserInfo(viewsets.ViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    print >> sys.stderr, "userinfo2"
+
+    #listing will return empty list - TODO - return error
+    def list(self, request):
+        return Response({})
+    #only details can be viewed - routed from /api/vfsession/{sessionid e.g. from cookie}
+    def retrieve(self, request, pk=None):
+        print >>sys.stderr, "vfsession_detail"+ pk
+
+        session = Session.objects.get(session_key=pk)
+        uid = session.get_decoded().get('_auth_user_id')
+        #returns user details or HTTP 500 is generated (session matching query doesn exist)
+        user = User.objects.get(pk=uid)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+

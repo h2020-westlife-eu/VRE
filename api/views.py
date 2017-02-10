@@ -4,12 +4,14 @@ import traceback
 
 from django.contrib.auth.models import User
 from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
 from django.core import signing
 from django.http import FileResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets, permissions
-from rest_framework.decorators import detail_route, list_route
+from rest_framework.decorators import detail_route, list_route, api_view
 from rest_framework.mixins import CreateModelMixin, DestroyModelMixin
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
@@ -60,6 +62,7 @@ from .serializers import (
     FolderSerializer,
     GDriveProviderSerializer,
     UserActionSerializer,
+    UserSerializer,
     UserStorageAccountSerializer,
     S3ProviderSerializer,
     WLWebdavProviderSerializer
@@ -468,3 +471,21 @@ class ExternalJobPortalSubmissionViewSet(ViewsetInjectRequestMixin, CreateModelM
     def perform_create(self, serializer):
         v = serializer.save(owner=self.request.user)
         UserAction.log(self.request.user, ACTION_TYPE_JOBPORTAL_SUBMIT, {'portal': v.target.name})
+
+# Retrieving user info from the logged in users with session id - usually sent via cookie
+class UserInfo(viewsets.ViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+    # TODO: disable this entirely
+    def list(self, request):
+        return Response({})
+
+    # /api/vfsession/{sessionid}
+    def retrieve(self, request, pk=None):
+        session = Session.objects.get(session_key=pk)
+        uid = session.get_decoded().get('_auth_user_id')
+        # Returns user details or HTTP 500 is generated (session matching query does not exist)
+        user = User.objects.get(pk=uid)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)

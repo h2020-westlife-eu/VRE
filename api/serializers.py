@@ -3,6 +3,7 @@
 # Copyright Luna Technology 2015
 # Matthieu Riviere <mriviere@luna-technology.com>
 
+from django.contrib.auth.models import User
 from django.core import signing
 
 from rest_framework import serializers
@@ -341,3 +342,9 @@ class ExternalJobPortalSubmissionSerializer(serializers.ModelSerializer):
             'created_at': {'read_only': True},
             'state': {'read_only': True},
         }
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'email')
+

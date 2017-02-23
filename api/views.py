@@ -1,4 +1,5 @@
 import os
+import re
 import tempfile
 import traceback
 
@@ -7,6 +8,7 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.core import signing
+from django.core.exceptions import PermissionDenied
 from django.http import FileResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
@@ -489,3 +491,45 @@ class UserInfo(viewsets.ViewSet):
         user = User.objects.get(pk=uid)
         serializer = UserSerializer(user)
         return Response(serializer.data)
+
+# Authentication Proxy for the webdav interface
+class AuthProxy(viewsets.ViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    def list(self, request):
+        # Check that the user in the requested URL matches the current user
+        # (or that the signed url matches)
+        requested_uri = request.headers.get('X-Original-URI')
+        requested_method = request.headers.get('X-Original-METHOD')
+
+        if requested_uri is None:
+            raise PermissionDenied("Missing X-Original-URI header")
+
+        path_regex = r'^/webdav/([^/]+)/'
+        m = re.match(path_regex, requested_uri)
+
+        if m is None:
+            raise PermissionDenied("Unrecognized URL pattern")
+
+        if m.group(1) == self.request.user.username:
+            r = Response({})
+            r['X-Real-User'] = m.group(1)
+            return r
+        else:
+            try:
+                real_username = signing.loads(m.group(1))['username']
+            except (KeyError, signing.BadSignature):
+                raise PermissionDenied("User does not have access to this resource")
+            else:
+                r = Response({})
+                r['X-Real-User'] = real_username
+                return r
+
+
+    @detail_route()
+    def get_signed_url(self, request):
+        signed_data = {
+            "username": self.request.user.username
+        }
+        h = signing.dumps(signed_data)
+
+	return Response({"signed_data": h})

@@ -9,8 +9,10 @@ from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.core import signing
 from django.core.exceptions import PermissionDenied
-from django.http import FileResponse, HttpResponseRedirect
+from django.http import FileResponse, HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
+
+import requests
 
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import detail_route, list_route, api_view
@@ -492,6 +494,7 @@ class UserInfo(viewsets.ViewSet):
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
+
 # Authentication Proxy for the webdav interface
 class AuthProxy(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticated,)
@@ -525,11 +528,58 @@ class AuthProxy(viewsets.ViewSet):
                 return r
 
 
-    @detail_route()
+    @list_route()
     def get_signed_url(self, request):
         signed_data = {
             "username": self.request.user.username
         }
         h = signing.dumps(signed_data)
 
-	return Response({"signed_data": h})
+        response_data = {
+            "signed_url": "/webdav/%s/" % h
+        }
+
+	return Response(response_data)
+
+
+def rewrite_webdav_path(request, path):
+    path_regex = r'^/webdav/([^/]+)/(.*)'
+    m = re.match(path_regex, path)
+
+    if m is None:
+        raise PermissionDenied('Unrecognized URL pattern')
+
+    if m.group(1) == request.user.username:
+        return path
+    else:
+        try:
+            real_username = signing.loads(m.group(1))['username']
+        except (KeyError, signing.BadSignature):
+            raise PermissionDenied('User does not have access to this resource')
+        else:
+            return '/webdav/%s/%s' % (real_username, m.group(2))
+
+
+def webdav_proxy_view(request):
+    remote_url = 'http://10.63.90.75:80'
+
+    headers = {
+        'Cookie': request.META.get('HTTP_COOKIE'),
+        'Authorization': request.META.get('HTTP_AUTHORIZATION')
+    }
+
+    path = rewrite_webdav_path(request, request.path)
+
+    r = requests.request(request.method, remote_url + path, headers=headers)
+
+
+    response = HttpResponse()
+    response.status_code = r.status_code
+    response.content = r.content
+
+    for header in r.headers.keys():
+        if header.lower() not in ['keep-alive', 'connection', 'content-encoding', 'vary']:
+            print(header, '->', r.headers[header])
+            response[header] = r.headers[header]
+
+    return response

@@ -28,14 +28,3 @@ if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [url(r'^__debug__/', include(debug_toolbar.urls))]
 
-# adding default test user
-from django.contrib.auth.models import User
-
-if not (User.objects.filter(username='vagrant').exists()):
-    try:
-       user = User.objects.create_user('vagrant', 'vagrant@vagrant', 'vagrant')
-       user = User.objects.create_user('vagrant2', 'vagrant2@vagrant', 'vagrant')
-    except:
-       print "user created, warning some error", sys.exc_info()[0]
-
-       # urlpatterns += [url(r'^silk/', include('silk.urls', namespace='silk'))]

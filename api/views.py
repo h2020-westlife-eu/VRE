@@ -66,7 +66,6 @@ from .serializers import (
     FolderSerializer,
     GDriveProviderSerializer,
     UserActionSerializer,
-    UserSerializer,
     UserStorageAccountSerializer,
     S3ProviderSerializer,
     WLWebdavProviderSerializer

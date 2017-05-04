@@ -118,11 +118,14 @@ def whoami(request):
 
 def logout(request):
     django_logout(request)
-    return HttpResponse('Logged out!')
+    #return HttpResponse('Logged out!')
+    return redirect('home')
 
 
 def switch_login(request):
+    next_url=request.GET.get('next', '/virtualfolder/')
+
     if hasattr(settings, 'SAML_CONFIG'):
-        return redirect('saml2_login')
+        return redirect('/saml2/login/?next=%s' % next_url)
     else:
-        return redirect('/home/#/login/')
+        return redirect('/accounts/login/?next=%s' % next_url)

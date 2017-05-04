@@ -67,6 +67,7 @@ from .serializers import (
     GDriveProviderSerializer,
     UserActionSerializer,
     UserStorageAccountSerializer,
+    UserSerializer,
     S3ProviderSerializer,
     WLWebdavProviderSerializer
 )

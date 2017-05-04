@@ -8,11 +8,11 @@ from .base import SettingsBase
 class SettingsDev(SettingsBase):
     DEBUG = True
 
-    DB_NAME = 'pype'
-    DB_USER = 'pype'
-    DB_PASS = 'pype'
+    DB_NAME = 'vre'
+    DB_USER = 'vre'
+    DB_PASS = 'vre'
 
-    BASE_URL = 'http://192.168.56.102:8000'
+    BASE_URL = 'http://10.81.73.73:8000'
 
     @property
     def INSTALLED_APPS(self):

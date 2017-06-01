@@ -21,6 +21,6 @@ class SettingsLocalSqlite(SettingsBase):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'sqlite.db'
+            'NAME': '/home/vagrant/.westlife/vresqlite.db'
         }
     }

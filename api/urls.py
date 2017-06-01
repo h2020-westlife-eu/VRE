@@ -27,6 +27,8 @@ router.register(r'externaljobportalforms', views.ExternalJobPortalFormViewSet, b
 router.register(r'externaljobportalsubmissions', views.ExternalJobPortalSubmissionViewSet, base_name='externaljobportalsubmission')
 router.register(r'vfsession', views.UserInfo, base_name='vfsession')
 
+router.register(r'authproxy', views.AuthProxy, base_name='authproxy')
+
 
 urlpatterns = [
     url(r'^', include(router.urls)),

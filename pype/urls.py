@@ -22,10 +22,10 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^auth/', include('djoser.urls.authtoken')),
     url(r'^_ws/', include('luna_websockets.urls')),
+    url(r'^webdav/', 'api.views.webdav_proxy_view'),
 ]
 
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [url(r'^__debug__/', include(debug_toolbar.urls))]
 
-    # urlpatterns += [url(r'^silk/', include('silk.urls', namespace='silk'))]

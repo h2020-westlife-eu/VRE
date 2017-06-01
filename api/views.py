@@ -1,4 +1,5 @@
 import os
+import re
 import tempfile
 import traceback
 
@@ -7,8 +8,11 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.core import signing
-from django.http import FileResponse, HttpResponseRedirect
+from django.core.exceptions import PermissionDenied
+from django.http import FileResponse, HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
+
+import requests
 
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import detail_route, list_route, api_view
@@ -62,8 +66,8 @@ from .serializers import (
     FolderSerializer,
     GDriveProviderSerializer,
     UserActionSerializer,
-    UserSerializer,
     UserStorageAccountSerializer,
+    UserSerializer,
     S3ProviderSerializer,
     WLWebdavProviderSerializer
 )
@@ -489,3 +493,93 @@ class UserInfo(viewsets.ViewSet):
         user = User.objects.get(pk=uid)
         serializer = UserSerializer(user)
         return Response(serializer.data)
+
+
+# Authentication Proxy for the webdav interface
+class AuthProxy(viewsets.ViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    def list(self, request):
+        # Check that the user in the requested URL matches the current user
+        # (or that the signed url matches)
+        requested_uri = request.headers.get('X-Original-URI')
+        requested_method = request.headers.get('X-Original-METHOD')
+
+        if requested_uri is None:
+            raise PermissionDenied("Missing X-Original-URI header")
+
+        path_regex = r'^/webdav/([^/]+)/'
+        m = re.match(path_regex, requested_uri)
+
+        if m is None:
+            raise PermissionDenied("Unrecognized URL pattern")
+
+        if m.group(1) == self.request.user.username:
+            r = Response({})
+            r['X-Real-User'] = m.group(1)
+            return r
+        else:
+            try:
+                real_username = signing.loads(m.group(1))['username']
+            except (KeyError, signing.BadSignature):
+                raise PermissionDenied("User does not have access to this resource")
+            else:
+                r = Response({})
+                r['X-Real-User'] = real_username
+                return r
+
+
+    @list_route()
+    def get_signed_url(self, request):
+        signed_data = {
+            "username": self.request.user.username
+        }
+        h = signing.dumps(signed_data)
+
+        response_data = {
+            "signed_url": "/webdav/%s/" % h
+        }
+
+	return Response(response_data)
+
+
+def rewrite_webdav_path(request, path):
+    path_regex = r'^/webdav/([^/]+)/(.*)'
+    m = re.match(path_regex, path)
+
+    if m is None:
+        raise PermissionDenied('Unrecognized URL pattern')
+
+    if m.group(1) == request.user.username:
+        return path
+    else:
+        try:
+            real_username = signing.loads(m.group(1))['username']
+        except (KeyError, signing.BadSignature):
+            raise PermissionDenied('User does not have access to this resource')
+        else:
+            return '/webdav/%s/%s' % (real_username, m.group(2))
+
+
+def webdav_proxy_view(request):
+    remote_url = 'http://10.63.90.75:80'
+
+    headers = {
+        'Cookie': request.META.get('HTTP_COOKIE'),
+        'Authorization': request.META.get('HTTP_AUTHORIZATION')
+    }
+
+    path = rewrite_webdav_path(request, request.path)
+
+    r = requests.request(request.method, remote_url + path, headers=headers)
+
+
+    response = HttpResponse()
+    response.status_code = r.status_code
+    response.content = r.content
+
+    for header in r.headers.keys():
+        if header.lower() not in ['keep-alive', 'connection', 'content-encoding', 'vary']:
+            print(header, '->', r.headers[header])
+            response[header] = r.headers[header]
+
+    return response

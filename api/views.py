@@ -578,7 +578,7 @@ def webdav_proxy_view(request):
     response.content = r.content
 
     for header in r.headers.keys():
-        if header.lower() not in ['keep-alive', 'connection', 'content-encoding', 'vary']:
+        if header.lower() not in ['keep-alive', 'connection', 'content-encoding', 'vary', 'content-length']:
             print(header, '->', r.headers[header])
             response[header] = r.headers[header]
 

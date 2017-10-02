@@ -11,6 +11,7 @@ from django.core import signing
 from django.core.exceptions import PermissionDenied
 from django.http import FileResponse, HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 
 import requests
 
@@ -533,7 +534,7 @@ class AuthProxy(viewsets.ViewSet):
         signed_data = {
             "username": self.request.user.username
         }
-        h = signing.dumps(signed_data)
+        h = signing.dumps(signed_data).replace(':', '.')
 
         response_data = {
             "signed_url": "/webdav/%s/" % h
@@ -550,36 +551,53 @@ def rewrite_webdav_path(request, path):
         raise PermissionDenied('Unrecognized URL pattern')
 
     if m.group(1) == request.user.username:
-        return path
+        return path, m.group(1), m.group(1)
     else:
         try:
-            real_username = signing.loads(m.group(1))['username']
+            real_username = signing.loads(m.group(1).replace('.', ':'))['username']
         except (KeyError, signing.BadSignature):
             raise PermissionDenied('User does not have access to this resource')
         else:
-            return '/webdav/%s/%s' % (real_username, m.group(2))
+            return '/webdav/%s/%s' % (real_username, m.group(2)), m.group(1), real_username
 
 
+@csrf_exempt
 def webdav_proxy_view(request):
     remote_url = 'http://10.63.90.75:80'
 
     headers = {
         'Cookie': request.META.get('HTTP_COOKIE'),
-        'Authorization': request.META.get('HTTP_AUTHORIZATION')
+        'Authorization': request.META.get('HTTP_AUTHORIZATION'),
+        'Depth': request.META.get('HTTP_DEPTH')
     }
 
-    path = rewrite_webdav_path(request, request.path)
+    path, encoded_path, real_username = rewrite_webdav_path(request, request.path)
 
-    r = requests.request(request.method, remote_url + path, headers=headers)
+    request_body = request.body
+    if len(request_body) > 0:
+        data = request_body
+    else:
+        data = None
+
+    r = requests.request(request.method, remote_url + path, data=data, headers=headers)
 
 
     response = HttpResponse()
     response.status_code = r.status_code
-    response.content = r.content
+    response.reason_phrase = r.reason
+    #response.content = r.content
+
+    if request.method == 'PROPFIND':
+        returned_content = r.content.replace(real_username, encoded_path)
+    else:
+        returned_content = r.content
 
     for header in r.headers.keys():
         if header.lower() not in ['keep-alive', 'connection', 'content-encoding', 'vary', 'content-length']:
             print(header, '->', r.headers[header])
             response[header] = r.headers[header]
 
+    response.write(returned_content)
+
     return response
+

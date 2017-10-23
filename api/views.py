@@ -1,16 +1,21 @@
 import os
+import re
 import tempfile
 import traceback
 
-import sys
 from django.contrib.auth.models import User
 from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
 from django.core import signing
-from django.http import FileResponse, HttpResponseRedirect
+from django.core.exceptions import PermissionDenied
+from django.http import FileResponse, HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
 
+import requests
+
 from rest_framework import viewsets, permissions
-from rest_framework.decorators import detail_route, list_route
+from rest_framework.decorators import detail_route, list_route, api_view
 from rest_framework.mixins import CreateModelMixin, DestroyModelMixin
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
@@ -62,6 +67,7 @@ from .serializers import (
     GDriveProviderSerializer,
     UserActionSerializer,
     UserStorageAccountSerializer,
+    UserSerializer,
     S3ProviderSerializer,
     WLWebdavProviderSerializer
 )
@@ -470,30 +476,20 @@ class ExternalJobPortalSubmissionViewSet(ViewsetInjectRequestMixin, CreateModelM
         v = serializer.save(owner=self.request.user)
         UserAction.log(self.request.user, ACTION_TYPE_JOBPORTAL_SUBMIT, {'portal': v.target.name})
 
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from django.contrib.sessions.models import Session
-from django.contrib.auth.models import User
-from serializers import UserSerializer
-
-#from rest_framework import mixins
-#retrieving user info from the logged in users with session id - usually sent via cookie
-#TODO should be exposed only to localhost queries - queries from another process of the same machine (e.g. Virtual folder metadataservice)
+# Retrieving user info from the logged in users with session id - usually sent via cookie
 class UserInfo(viewsets.ViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    print >> sys.stderr, "userinfo2"
 
-    #listing will return empty list - TODO - return error
+    # TODO: disable this entirely
     def list(self, request):
         return Response({})
-    #only details can be viewed - routed from /api/vfsession/{sessionid e.g. from cookie}
-    def retrieve(self, request, pk=None):
-        print >>sys.stderr, "vfsession_detail"+ pk
 
+    # /api/vfsession/{sessionid}
+    def retrieve(self, request, pk=None):
         session = Session.objects.get(session_key=pk)
         uid = session.get_decoded().get('_auth_user_id')
-        #returns user details or HTTP 500 is generated (session matching query doesn exist)
+        # Returns user details or HTTP 500 is generated (session matching query does not exist)
         user = User.objects.get(pk=uid)
         serializer = UserSerializer(user)
         return Response(serializer.data)
@@ -508,3 +504,92 @@ class HeaderInfo(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
         return Response({'username':request.META['HTTP_X_USERNAME'],'name':request.META['HTTP_X_NAME']})
 
+
+# Authentication Proxy for the webdav interface
+class AuthProxy(viewsets.ViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    def list(self, request):
+        # Check that the user in the requested URL matches the current user
+        # (or that the signed url matches)
+        requested_uri = request.headers.get('X-Original-URI')
+        requested_method = request.headers.get('X-Original-METHOD')
+
+        if requested_uri is None:
+            raise PermissionDenied("Missing X-Original-URI header")
+
+        path_regex = r'^/webdav/([^/]+)/'
+        m = re.match(path_regex, requested_uri)
+
+        if m is None:
+            raise PermissionDenied("Unrecognized URL pattern")
+
+        if m.group(1) == self.request.user.username:
+            r = Response({})
+            r['X-Real-User'] = m.group(1)
+            return r
+        else:
+            try:
+                real_username = signing.loads(m.group(1))['username']
+            except (KeyError, signing.BadSignature):
+                raise PermissionDenied("User does not have access to this resource")
+            else:
+                r = Response({})
+                r['X-Real-User'] = real_username
+                return r
+
+
+    @list_route()
+    def get_signed_url(self, request):
+        signed_data = {
+            "username": self.request.user.username
+        }
+        h = signing.dumps(signed_data)
+
+        response_data = {
+            "signed_url": "/webdav/%s/" % h
+        }
+
+	return Response(response_data)
+
+
+def rewrite_webdav_path(request, path):
+    path_regex = r'^/webdav/([^/]+)/(.*)'
+    m = re.match(path_regex, path)
+
+    if m is None:
+        raise PermissionDenied('Unrecognized URL pattern')
+
+    if m.group(1) == request.user.username:
+        return path
+    else:
+        try:
+            real_username = signing.loads(m.group(1))['username']
+        except (KeyError, signing.BadSignature):
+            raise PermissionDenied('User does not have access to this resource')
+        else:
+            return '/webdav/%s/%s' % (real_username, m.group(2))
+
+
+def webdav_proxy_view(request):
+    remote_url = 'http://10.63.90.75:80'
+
+    headers = {
+        'Cookie': request.META.get('HTTP_COOKIE'),
+        'Authorization': request.META.get('HTTP_AUTHORIZATION')
+    }
+
+    path = rewrite_webdav_path(request, request.path)
+
+    r = requests.request(request.method, remote_url + path, headers=headers)
+
+
+    response = HttpResponse()
+    response.status_code = r.status_code
+    response.content = r.content
+
+    for header in r.headers.keys():
+        if header.lower() not in ['keep-alive', 'connection', 'content-encoding', 'vary', 'content-length']:
+            print(header, '->', r.headers[header])
+            response[header] = r.headers[header]
+
+    return response

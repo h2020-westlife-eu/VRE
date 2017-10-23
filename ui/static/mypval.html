@@ -1,0 +1,139 @@
+<html lang="EN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=9;chrome=1">
+<title>Scipion web tools</title>
+        
+   <base href="https://portal.west-life.eu/" />
+   
+	
+	<!-- WL -->
+       <link rel="stylesheet" type="text/css" href="/static/css/_gen.20161027.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta name="description" content="Symhub">
+    <meta name="author" content="Luna Technology">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/img/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/img/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/img/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/img/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/img/favicons/apple-touch-icon-76x76.png">
+    <link rel="icon" type="image/png" href="/static/img/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/static/img/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/img/favicons/favicon-32x32.png" sizes="32x32">
+    <meta name="msapplication-TileColor" content="#da532c">
+
+    <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+    <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+    <!--[if IE 8 ]> <body class="ie ie8 ">
+    <style type="text/css">
+      .navbar form.search input,.sidebar-nav form.search input,.sidebar-label,.thumb-account{border: none;}
+      .thumb-account span {width: 2px;}
+      .sidebar-nav .form-inline { display: none;}
+    </style>
+    <![endif]-->
+
+    <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+
+    <!--[if gte IE 9]>
+      <style type="text/css">.gradient {filter: none;}</style>
+    <![endif]-->
+
+	<!-- /WL -->
+
+</head><body>           
+  
+<nav class="top same_color_than_footer">
+    <a href="/">
+        <img class="logo" src="/static/img/westlife-logo.png" alt="brand logo">
+    </a>
+
+    <ul>
+        
+        <li><a href="http://internal-wiki.west-life.eu">Internal Wiki</a></li>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="https://www.west-life.eu">About us</a></li>
+        
+    </ul>
+</nav>	
+<div class="presentation-text">
+
+  <img style="float: left; margin: 0 1em 0 0;" src="http://scipion.cnb.csic.es/m/resources/scipion_logo_normal.png" alt="Scipion logo" height="65">
+<h1 style="height:80; text-align: center; font-size: 1.1em; font-weight: bold; color: #fff;  vertical-align: middle;">Scipion Web Tools</h1>
+	
+	<h1>My reliability tool</h1>
+		<br />
+		<h4 style="text-align:justify;">
+			This tool will provide you with 2 methods to assess the reliability of your images compared to your map.
+			<br/><br/>
+			The alignment reliability method (validate non-tilt) will evaluate the consistency between a raw 3D density map with respect to a set of 2D projection images
+ 			that were used to reconstruct that map, obtaining the alignment precision for each particle
+			(<a href="https://doi.org/10.1038/srep21626" target="_blank"><strong>Vargas et al., Sci. Rep., 2016</strong></a>).
+			<br/><br/>
+			The overfitting assessment method (validate overfitting) will assess the validity of a reconstruction comparing aligned particles to aligned gaussian noise.
+			Practically, for small sets of particles, if the resolution of the reconstruction based on aligned particles is not considerably different
+			from the one based on aligned gaussian noise, particle images may not be good enough for the reconstruction.(<a href="http://dx.doi.org/10.3934/biophy.2015.1.21" target="_blank"><strong>Heymann, 2015</strong></a>).
+		</h4>
+
+		<div id="minibox">
+			<div id="steps">
+				<h2>
+					<strong>
+						Choose your project
+					</strong>
+				</h2>
+			</div>
+			<br />
+			<div id="lineOpt">
+				<p>Create an empty project</p>
+				<span id="buttons">
+					<!-- CREATE NEW PROJECT -->
+					<a href="javascript:serviceProjForm();">
+						<button class="btn btn_wide button2 primary_inv" type="button">
+							Create
+						</button>
+					</a>
+				</span>
+			</div>
+			<br />
+			<div id="lineOpt">
+				<p>Create a project with Test data</p>
+				<span id="buttons">
+					<!-- TEST DATA -->
+					<a href="javascript:serviceTestDataForm();">
+						<button class="btn btn_wide button2 primary_inv" type="button">
+							Test data
+						</button>
+					</a>
+				</span>
+			</div>
+			<br />
+			<div id="lineOpt">
+				<p>Explore project with Test data (read-only)</p>
+				<span id="buttons">
+					<!-- EXAMPLE PROJECT -->
+					<a href="javascript:goExampleForm();">
+						<button class="btn btn_wide button2 primary_inv" type="button">
+							Explore
+						</button>
+					</a>
+				</span>
+			</div>
+		</div>
+</div><!-- /presentation-text -->
+
+        
+    
+            <script src="http://scipion.cnb.csic.es/m/static/js/jquery/jquery.js" type="text/javascript"></script>
+            <!-- <script src="http://scipion.cnb.csic.es/m/static/js/bootstrap-3.3.5/bootstrap.min.js" type="text/javascript"></script> -->
+            <script src="http://scipion.cnb.csic.es/m/static/js/config.js" type="text/javascript"></script> 
+        
+	<script type="text/javascript" src="http://scipion.cnb.csic.es/m/static/js/ext_libs/messi.js"></script>
+	<script type="text/javascript" src="http://scipion.cnb.csic.es/m/static/js/utils.js"></script>
+	<script type="text/javascript" src="http://scipion.cnb.csic.es/m/static/js/config.js"></script>
+	<script type="text/javascript" src="http://scipion.cnb.csic.es/m/static/js/project_utils.js" ></script>
+	<script type="text/javascript" src="http://scipion.cnb.csic.es/m/static/js/mypval_utils.js"></script>
+
+
+
+</body></html>

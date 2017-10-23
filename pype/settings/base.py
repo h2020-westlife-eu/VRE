@@ -45,7 +45,8 @@ class SettingsBase(CelerySettings, BaseSettings):
             self.root('bower_components'),
         )
 
-    LOGIN_REDIRECT_URL = '../../../virtualfolder/'
+    #LOGIN_REDIRECT_URL = '/home/'
+    LOGIN_REDIRECT_URL = '/virtualfolder/'
     LOGIN_URL = '/login/'
 
     MIDDLEWARE_CLASSES = (

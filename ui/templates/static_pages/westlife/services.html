@@ -4,13 +4,17 @@
 {% block ng_app %}class="nobackground"{% endblock ng_app %}
 {% block stylesheets %}
     {% assets "css_landing" %}
-        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+<meta http-equiv="refresh" content="0;URL='https://www.structuralbiology.eu/network/west-life/services'" />
+<link rel="canonical" href="https://www.structuralbiology.eu/network/west-life/services"/>
+<link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
     {% endassets %}
 {% endblock stylesheets %}
 
 {% block body %}
 {% include "blocks/navbar_root_westlife.html" %}
-
+<script type="text/javascript">
+            window.location.replace( "https://www.structuralbiology.eu/network/west-life/services");
+</script>
 <div class="presentation-text">
     <h3>West-Life services</h3>
     <ul>
@@ -65,6 +69,12 @@
             <h4><a href="/static/scipion.html" >Scipion (CNB - CSIC)</a></h4>
             <p>
                 Subset of workflows implemented in Scipion and accessed through a webpage. These tools provides a good way to try the different processing workflows without any local installation.
+            </p>
+        </li>
+        <li class="presentation-institution">
+            <h4><a href="http://3dbionotes.cnb.csic.es/" >3DBIONOTES (CNB - CSIC)</a></h4>
+            <p>
+                Annotates a structure with information from many biomedical databases. 
             </p>
         </li>
         <li class="presentation-institution">

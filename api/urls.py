@@ -28,7 +28,7 @@ router.register(r'externaljobportalsubmissions', views.ExternalJobPortalSubmissi
 router.register(r'vfsession', views.UserInfo,base_name='vfsession')
 router.register(r'hdsession', views.HeaderInfo,base_name='hdsession')
 
-
+router.register(r'authproxy', views.AuthProxy, base_name='authproxy')
 
 
 urlpatterns = [

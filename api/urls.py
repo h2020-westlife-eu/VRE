@@ -26,6 +26,7 @@ router.register(r'externaljobportals', views.ExternalJobPortalViewSet, base_name
 router.register(r'externaljobportalforms', views.ExternalJobPortalFormViewSet, base_name='externaljobportalform')
 router.register(r'externaljobportalsubmissions', views.ExternalJobPortalSubmissionViewSet, base_name='externaljobportalsubmission')
 router.register(r'vfsession', views.UserInfo,base_name='vfsession')
+router.register(r'hdsession', views.HeaderInfo,base_name='hdsession')
 
 
 

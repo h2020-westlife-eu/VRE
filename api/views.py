@@ -498,3 +498,13 @@ class UserInfo(viewsets.ViewSet):
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
+from django.http import HttpRequest
+
+class HeaderInfo(viewsets.ViewSet):
+    queryset = User.objects.all()
+    def list(self, request):
+        return Response({'username':request.META['HTTP_X_USERNAME'],'name':request.META['HTTP_X_NAME']})
+
+    def retrieve(self, request, pk=None):
+        return Response({'username':request.META['HTTP_X_USERNAME'],'name':request.META['HTTP_X_NAME']})
+

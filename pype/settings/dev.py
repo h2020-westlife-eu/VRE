@@ -18,9 +18,9 @@ class SettingsDev(SettingsBase):
     def INSTALLED_APPS(self):
         installed_apps = super(SettingsDev, self).INSTALLED_APPS
 
-        installed_apps += (
-            'djangosaml2',
-        )
+#        installed_apps += (
+#            'djangosaml2',
+#        )
 
         return installed_apps
 
@@ -32,7 +32,7 @@ class SettingsDev(SettingsBase):
 
     AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
-        'djangosaml2.backends.Saml2Backend',
+#        'djangosaml2.backends.Saml2Backend',
     )
 
     SESSION_EXPIRE_AT_BROWSER_CLOSE = True
@@ -41,7 +41,7 @@ class SettingsDev(SettingsBase):
     import saml2
     import saml2.saml
     CURDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'saml')
-    SAML_CONFIG = {
+    SAML_CONFIG_DISABLED = {
         'xmlsec_binary': '/usr/bin/xmlsec1',
 
         'entityid': 'http://10.81.73.65:8004/saml2/metadata/',

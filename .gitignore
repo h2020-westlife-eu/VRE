@@ -10,6 +10,7 @@ __pycache__/
 /cover/
 .venv
 .venv~
+/.pyvenv/
 
 # C extensions
 *.so
@@ -76,3 +77,7 @@ htmlcov
 
 # editor work files
 *~
+
+
+celerybeat-schedule
+sqlite.db

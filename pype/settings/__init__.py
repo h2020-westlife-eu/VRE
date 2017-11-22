@@ -4,6 +4,7 @@ from .jenkins import SettingsJenkins
 from .local_sqlite import SettingsLocalSqlite
 from .staging import SettingsStaging
 from .westlife_prod import SettingsWestLifeProd
+from .westlife_prod_docker import SettingsWestLifeProdDocker
 
 from luna_django_commons.settings import apply_settings
 

@@ -3,6 +3,7 @@ import re
 import tempfile
 import traceback
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth.models import User
@@ -563,7 +564,7 @@ def rewrite_webdav_path(request, path):
 
 @csrf_exempt
 def webdav_proxy_view(request):
-    remote_url = 'http://10.63.90.75:80'
+    remote_url = settings.VF_HOST
 
     headers = {
         'Cookie': request.META.get('HTTP_COOKIE'),

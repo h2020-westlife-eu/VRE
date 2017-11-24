@@ -5,6 +5,7 @@
 
 from datetime import timedelta
 from os.path import abspath, dirname
+from os import getenv
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -149,3 +150,5 @@ class SettingsBase(CelerySettings, BaseSettings):
         'PASSWORD_RESET_CONFIRM_URL': 'home/#/password/reset/{token}/{uid}/',
         'PASSWORD_RESET_CONFIRM_RETYPE': True,
     }
+
+    VF_HOST = getenv('VF_HOST', 'http://10.63.90.75:80')

@@ -15,6 +15,7 @@ class SettingsWestLifeProdDocker(SettingsBase):
 
     DEPLOYMENT_BASENAME = 'pype_westlife_prod'
 
+    DB_HOST = 'postgres'
     DB_NAME = os.getenv('POSTGRESQL_DB', 'pype_westlife_prod')
     DB_USER = os.getenv('POSTGRESQL_USER', 'pype_westlife_prod')
     DB_PASS = os.getenv('POSTGRESQL_PASS', 'pype_westlife_prod')
@@ -23,6 +24,7 @@ class SettingsWestLifeProdDocker(SettingsBase):
         'admin.west-life.eu',
         'www.west-life.eu',
         'portal.west-life.eu',
+        '*'
     ]
 
     BASE_URL = 'https://portal.west-life.eu'

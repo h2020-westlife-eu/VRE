@@ -1,0 +1,157 @@
+
+###STANDALONE PROCEDURE
+ubuntu 16.04
+
+NOTE: This procedure explains how to install a public instance of the virtual folder.
+It uses the Westlife VM that contains the virtual folder, as a backend.
+The docker containers add a surrounding infrastructure that allows:
+- to handle multiple concurrent users in a secure way on the VM
+- to handle more traffic
+
+
+#Setup firewall
+
+#Open ports initially: 22 (ssh), 80 (http), 443 (https), 1194 (OpenVPN)
+sudo ufw allow 22
+sudo ufw allow 80
+sudo ufw allow 443
+sudo ufw allow 1194
+sudo ufw allow from any to 10.8.0.1 #OpenVPN network adapter, not accessible from outside but we still must open the firewall on it
+sudo ufw enable
+sudo ufw default deny
+
+#Install OpenVPN
+NOTE: The VPN is important since it allows us to make internal services listen
+on the virtual network adapter, which is not accessible from outside.
+
+wget https://raw.githubusercontent.com/LunaTechnology/OpenVPN-install/master/openvpn-install.sh
+chmod +x openvpn-install.sh
+sudo ./openvpn-install.sh
+
+sudo bash -c 'echo "push route 10.8.0.0 255.255.255.0" >> /etc/openvpn/server.conf'
+sudo systemctl restart openvpn@server.service
+
+Then download the client conf file on your laptop, and open it with the OpenVPN client
+(OsX: Tunnelblick is great).
+
+Make sure you can connect to the OpenVPN server from your laptop.
+Make sure that on the server the network adapter has ip address 10.8.0.1
+(use command "ip a")
+
+
+#Install Docker
+
+sudo apt-get install apt-transport-https
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+apt-cache policy docker-ce
+sudo apt-get install -y docker-ce
+
+#Install docker-compose
+
+sudo curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/1.15.0/docker-compose-$(uname -s)-$(uname -m)"
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose -v
+
+
+#Fetch the westlife-portal docker-compose folder
+
+Fetch the docker-compose folder at:
+https://github.com/h2020-westlife-eu/VRE
+in install/dockercomposefolder-VRE
+
+cd dockercomposefolder-VRE
+
+In secrets.json, pick a long random string for the SECRET_KEY variable
+
+Contact Instruct ARIA (SSO) team to get the 2 files:
+shib-prod-instruct.key
+shib-prod-instruct.pem
+and put those files in the docker-compose folder
+
+Run this command:
+sudo docker-compose up -d
+
+
+# Install VirtualBox
+
+sudo bash -c 'echo "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" >> /etc/apt/sources.list'
+
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+sudo apt-get update
+sudo apt-get update --fix-missing
+sudo apt-get install virtualbox-5.0
+sudo usermod -aG vboxusers ubuntu
+sudo systemctl status vboxdrv
+
+sudo /sbin/rcvboxdrv setup
+sudo apt-get install virtualbox-ext-pack
+
+
+# Set up the Westlife VM
+
+git clone https://github.com/h2020-westlife-eu/wp6-vm.git
+cd wp6-vm
+cd vf-standalone-bin
+vagrant up
+
+Power off the VM. In following instructions, adapt the name of the VM
+
+#Now we configure the VM port forwarding rules
+#We delete the existing port forwarding rules
+VBoxManage showvminfo westlifeVM
+VBoxManage modifyvm wp6-vm_default_1511804229164_47472 --natpf1 delete guestssh
+VBoxManage modifyvm wp6-vm_default_1511804229164_47472 --natpf1 delete metadataservice
+VBoxManage modifyvm wp6-vm_default_1511804229164_47472 --natpf1 delete virtualfolder
+#We set up new ones
+VBoxManage modifyvm wp6-vm_default_1511804229164_47472 --natpf1 "guestssh,tcp,,2222,,22"
+VBoxManage modifyvm wp6-vm_default_1511804229164_47472 --natpf1 "metadataservice,tcp,,8101,,8001"
+VBoxManage modifyvm wp6-vm_default_1511804229164_47472 --natpf1 "virtualfolder,tcp,,8100,,80"
+
+vboxmanage startvm wp6-vm_default_1511804229164_47472 --type headless
+
+
+#Now one can ssh into the VM with ssh -p 2222 (ou 2200) vagrant@127.0.0.1 (passwd: vagrant)(when already sshed on the server. Does not work from outside.)
+#SSH INTO THE VM, make sure some processes are listening on port 80 (virtualfolder ui) and port 8001 (etadata service)
+#NOTE: metadata service sometimes does not boot on restart, in this case do:
+# sudo systemctl start westlife-metadata
+
+ssh -p 2222 vagrant@127.0.0.1
+
+#Here we tell the metadata service where to find the VRE api.
+#The metadata service inside the VM will call this api to make sure the user is authentified
+sudo sed -i 's/Environment=VF_VRE_API_URL=http:\/\/localhost\/api\//Environment=VF_VRE_API_URL=http:\/\/10.8.0.1:10450\/api\//g' /etc/systemd/system/westlife-metadata.service
+
+#We deactivate this feature for safety reasons (it allows to browse local files via the web interface, which is not good for a public instance with multiple users)
+sudo sed -i 's/Environment=VF_ALLOW_FILESYSTEM=true/Environment=VF_ALLOW_FILESYSTEM=false/g' /etc/systemd/system/westlife-metadata.service
+
+#NOTE: This service does not restart automatically when the VM was rebooted
+sudo systemctl stop westlife-metadata
+sudo systemctl daemon-reload
+sudo systemctl start westlife-metadata
+
+#We exit ssh
+exit
+
+#SUMMARY:
+#Host->VM
+#The VM listens on 80 and 8001
+#We port-forward with virtualbox to have instead 127.0.0.1:8100 and 127.0.0.1:8101
+#In nginx westlife.conf we update the /metadataservices and /virtualfolder endpoints accordingly, to point to those addresses
+#VM->Host
+#The djangoapi container listens to 10.8.0.1:10450.
+#NOTE: from inside the VM, or from inside containers, when we want to specify
+#127.0.0.1 meaning bare-metal host, we use 10.8.0.1 instead (routed from everywhere)
+
+
+
+#Front webserver
+
+Now, pick a webserver of your choosing, and have it forward requests coming on port 80
+with the domain name you chose, to http://10.8.0.1:10450 (where the front docker container is listening).
+
+Go to the domain name you chose in your browser,
+- make sure you arrive on the VRE web page
+- make sure clicking on login takes you to the ARIA login page
+- make sure you can add data providers, and browse your files

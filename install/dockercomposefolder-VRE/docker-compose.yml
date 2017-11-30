@@ -1,0 +1,48 @@
+version: '2'
+services:
+  djangoapi:
+    image: lunatechnology/west-life-portal-api-staging
+    #image: west-life-portal-api-dev
+    environment:
+     - PYTHONUNBUFFERED=0
+     - POSTGRESQL_DB=westlife
+     - POSTGRESQL_USER=westlife
+     - POSTGRESQL_PASS=${POSTGRES_PASS}
+     - API_SECRET=${API_SECRET}
+     - DJANGO_MODE=WestLifeProdDocker
+     - VF_HOST=${VF_HOST}
+    volumes:
+     - ./secrets.json:/app/pype/settings/secrets.json
+     - ./shib-prod-instruct.key:/app/pype/settings/saml/shib-prod-instruct.key
+     - ./shib-prod-instruct.pem:/app/pype/settings/saml/shib-prod-instruct.pem
+     - ./instruct-providers.xml:/app/pype/settings/saml/instruct-providers.xml
+    restart: unless-stopped
+  front:
+    image: lunatechnology/west-life-portal-front-staging
+    #image: west-life-portal-front-dev
+    ports:
+     - "${LISTEN_PORT}:80"
+    restart: unless-stopped
+  postgres:
+    image: postgres:9.4
+    environment:
+     - POSTGRES_DB=westlife
+     - POSTGRES_USER=westlife
+     - POSTGRES_PASSWORD=${POSTGRES_PASS}
+    volumes:
+     - ./data:/var/lib/postgresql/data
+    restart: unless-stopped
+  redis:
+    image: redis
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+volumes:
+  postgres_data: {}
+  redis_data: {}
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.35.8.0/24

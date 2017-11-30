@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntityDescriptor  xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui" entityID="https://www.structuralbiology.eu/idp/shibboleth">
+
+    <IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol urn:mace:shibboleth:1.0">
+
+        <Extensions>
+            <shibmd:Scope regexp="false">structuralbiology.eu</shibmd:Scope>
+            <mdui:UIInfo>
+                <mdui:DisplayName xml:lang="en">ARIA</mdui:DisplayName>
+                <mdui:Description xml:lang="en">ARIA Authentication Service</mdui:Description>
+                <mdui:Logo height="800" width="800">https://www.structuralbiology.eu/images/idplogo.png</mdui:Logo>
+            </mdui:UIInfo>
+        </Extensions>
+
+        <KeyDescriptor use="signing">
+            <ds:KeyInfo>
+                    <ds:X509Data>
+                        <ds:X509Certificate>
+MIIDSzCCAjOgAwIBAgIUCu0EKrTA48TS8y3ZBxfVylOnOZswDQYJKoZIhvcNAQEL
+BQAwIzEhMB8GA1UEAwwYd3d3LnN0cnVjdHVyYWxiaW9sb2d5LmV1MB4XDTE1MDgy
+NTEzMTg1OFoXDTM1MDgyNTEzMTg1OFowIzEhMB8GA1UEAwwYd3d3LnN0cnVjdHVy
+YWxiaW9sb2d5LmV1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn+rH
+Qtvg4N8exNo1VHDGJneFAbs3WeB6mm9cPhad1Sw4iFfutUxXsVzFnmkONqtcPjCS
+TCPUvR8gjKMwEeee8PWUEBp5iw0VHjgMHjTJr+V1TgpKMG1zmx1u7Q2aWNvdbu7R
+4/B3S5AWYepgUmAkGw70fMkdZxxbT1G3/ytW4plI16ZJBsIb7tE8yRneGpWLzl5U
+Ie7QT3hNPZpaPw7dPRXqebQsHXGIdVpqitNR3p3XSTC/511euZswZgHmiW8oOGLF
+UA4elRvR6zWPfCQ8Rahwwnxtu6Xgaa3J8pVqSOfYKvzl5aUaybDDS4CdgBzwjgJ0
+CLN37tOrA7MEBAT7RQIDAQABo3cwdTAdBgNVHQ4EFgQUr3bxWVKi2cyvab6z5QNK
+Y83+ZFcwVAYDVR0RBE0wS4IYd3d3LnN0cnVjdHVyYWxiaW9sb2d5LmV1hi9odHRw
+czovL3d3dy5zdHJ1Y3R1cmFsYmlvbG9neS5ldS9pZHAvc2hpYmJvbGV0aDANBgkq
+hkiG9w0BAQsFAAOCAQEADbAnaNuN9dy04ywK0q18RsnM88iw8HsUBvYjKxLdTLir
+vORxp1bYlLW5jh9o3VvhzKZM421/QhSLw5XGwQ6ApS9aW5YPvYwUttmc+oDw+ZuZ
+T5ZUaZ0Dy909RP/TeH3Y2yBhMSolGYT3E7HtHYbu7jfEal2OAgJvjQux+xhr6Y8n
+KUo3iZZA3+Gabc69F0zGv0Q3HDFvz3rwLQV3tBffmZNGalQXRRTZaeY9Ryf7TtLe
+JZdlxOmyDG01AsLCocCluqrFFPBjoQDTDHGzXVAuQkCsTY2h+YmKaZUaYZx20DBx
+704JY++IGA27mQiqpiEbnLlPIOYIPPVjhtP++CKJ2g==
+                        </ds:X509Certificate>
+                    </ds:X509Data>
+            </ds:KeyInfo>
+
+        </KeyDescriptor>
+        <KeyDescriptor use="signing">
+            <ds:KeyInfo>
+                    <ds:X509Data>
+                        <ds:X509Certificate>
+MIIDSzCCAjOgAwIBAgIUOHJHcRtkxn3TjP9AQU1kRrEa0A8wDQYJKoZIhvcNAQEL
+BQAwIzEhMB8GA1UEAwwYd3d3LnN0cnVjdHVyYWxiaW9sb2d5LmV1MB4XDTE1MDgy
+NTEzMTg1N1oXDTM1MDgyNTEzMTg1N1owIzEhMB8GA1UEAwwYd3d3LnN0cnVjdHVy
+YWxiaW9sb2d5LmV1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoW65
+NLfQ/FMiE1Sx1P9GlYKeXt5k2d53Un/HK0NNAvSg0RZhmsa/QVSIuMKIFKJsMM4z
+z6WJ/OYjJkRDfCmURMgO1x2HkBJh1putaRksHuPjc5gX66fh24nUnE4mZPkctvhv
+c5F3FQArHeJBWKkH/bd48fYFc4ghStMdLfCnFF+eN9twnHeDw2Q/ZUGdQ4KjgVz3
+8Zy8D3Qgp1BgpzHQDy1+yH+2ujtZz/JcQS2i8bW5YhFHAW7MSL27Pg14MrxxGgck
+m+aWKaDL/j4CaOVWT86K1bSzYm7ti2YvVIYhwr6htSDEOmJjqOI+u6P6brLQVp3n
+8tml32GLYvHPvOqZtQIDAQABo3cwdTAdBgNVHQ4EFgQU6D0+ALM8dpXI9XeyDro8
+dh+cLXgwVAYDVR0RBE0wS4IYd3d3LnN0cnVjdHVyYWxiaW9sb2d5LmV1hi9odHRw
+czovL3d3dy5zdHJ1Y3R1cmFsYmlvbG9neS5ldS9pZHAvc2hpYmJvbGV0aDANBgkq
+hkiG9w0BAQsFAAOCAQEAdmMTbFCgoeE60q13JkL4P4+IfzsHnm4h8CZaXTM/2kBZ
+a+iWyiBULLVDNIal692O+BebyKsBNsFX4o45U1yc9x2FvXyaaY9jt3HDeV30bnyo
+9xptBoO5rtT0zqcaQThzVSnGwgvvs83xrVn+rJr5nKPlOJJ1VbM3fOItktaHxwXa
+dMFBmRsVf15VjttGxfcNlQEo3G0dTn4wrujtFF4Qo+kfvLFRxN9WvrIl6LNSYsuG
+Nhho+Cu5lOH8B6rlhyXSQNs1aeNWc2wtjrEi6+KJaMiJqubxWrw4RcB3lD5T1f+P
+yHzPvPea2NE2+VOHL5htFlngZLsDkvRTTnSSKEPJ9w==
+                        </ds:X509Certificate>
+                    </ds:X509Data>
+            </ds:KeyInfo>
+
+        </KeyDescriptor>
+        <KeyDescriptor use="encryption">
+            <ds:KeyInfo>
+                    <ds:X509Data>
+                        <ds:X509Certificate>
+MIIDSzCCAjOgAwIBAgIUTFRnZNxxIYdO0l/I88reQLFsM+EwDQYJKoZIhvcNAQEL
+BQAwIzEhMB8GA1UEAwwYd3d3LnN0cnVjdHVyYWxiaW9sb2d5LmV1MB4XDTE1MDgy
+NTEzMTg1OFoXDTM1MDgyNTEzMTg1OFowIzEhMB8GA1UEAwwYd3d3LnN0cnVjdHVy
+YWxiaW9sb2d5LmV1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzl/V
+s+G7fqNzgklAciczuMYDfy5CERJmBsgGij6yWLSB4LmHxN933K/I7eYEdSsBFtxY
+qRv9CnFAFvho9U74QCbuAHGQ0JlrBBLVxIm+rDjw/dw2+38UOPJuQTblQiigHtzW
+OvIQGakGf7obsbmCeFGeCBm39e2kstDSTzxFy98BJ44fwMJz0+vteNJldskx6W/y
+ZCwV2GPUnoc7Kw+M5cZOxy6FUkuPicqWeptsjb4wLSVT7tfK7N8YlJtA7N6J3Udj
+qhHM+TXwoOt5JV9G57jAYkRuU0jwdQCdNcHoyx6ABMKIekL2JQ1b8ySrktmeWe/+
+XUmgrNpmO+GSNo6BNwIDAQABo3cwdTAdBgNVHQ4EFgQUp8N3+712IkH1mJafXlVV
+btXaXVUwVAYDVR0RBE0wS4IYd3d3LnN0cnVjdHVyYWxiaW9sb2d5LmV1hi9odHRw
+czovL3d3dy5zdHJ1Y3R1cmFsYmlvbG9neS5ldS9pZHAvc2hpYmJvbGV0aDANBgkq
+hkiG9w0BAQsFAAOCAQEALFUe6JuChoJXnA4S/vlSCNM/pmk+IL1JvlAAIMHcduEs
+4Zx2SomGjqzIgUjtLSG8b+Rq1La80u8AnhKEW+srduNzLm6JKF7+PCzUgNX+exs3
+jxwmb92cAOKMF9zgsTdra5RNaBTyepDUIUNUPzudfH16wTVjh7KH8u/htTO9uRY0
+pzH+NiHHiQpkmKIaw/LiBhqflNUCn0A0cDFE7UJLOakZabeVq57luyxE5WJLJKu6
+WmLG8WoVmV3qumoX+nJ5kZwZepEFK3GlV9OVzl9T7hg0Q8J9M+XN7S7NZ5BSDmM7
+E4V9KsjmYVLFlrQmjjJSiuXaP14LaPm4+Y93ZCT68g==
+                        </ds:X509Certificate>
+                    </ds:X509Data>
+            </ds:KeyInfo>
+
+        </KeyDescriptor>
+
+        <ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://www.structuralbiology.eu/idp/profile/SAML1/SOAP/ArtifactResolution" index="1"/>
+        <ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://www.structuralbiology.eu/idp/profile/SAML2/SOAP/ArtifactResolution" index="2"/>
+
+        <!--
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://www.structuralbiology.eu/idp/profile/SAML2/Redirect/SLO"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://www.structuralbiology.eu/idp/profile/SAML2/POST/SLO"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="https://www.structuralbiology.eu/idp/profile/SAML2/POST-SimpleSign/SLO"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://www.structuralbiology.eu/idp/profile/SAML2/SOAP/SLO"/>
+        -->
+
+        <NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+
+        <SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://www.structuralbiology.eu/idp/profile/Shibboleth/SSO"/>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://www.structuralbiology.eu/idp/profile/SAML2/POST/SSO"/>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="https://www.structuralbiology.eu/idp/profile/SAML2/POST-SimpleSign/SSO"/>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://www.structuralbiology.eu/idp/profile/SAML2/Redirect/SSO"/>
+
+    </IDPSSODescriptor>
+
+
+    <AttributeAuthorityDescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:1.1:protocol">
+
+        <Extensions>
+            <shibmd:Scope regexp="false">structuralbiology.eu</shibmd:Scope>
+        </Extensions>
+
+        <KeyDescriptor use="signing">
+            <ds:KeyInfo>
+                    <ds:X509Data>
+                        <ds:X509Certificate>
+MIIDSzCCAjOgAwIBAgIUCu0EKrTA48TS8y3ZBxfVylOnOZswDQYJKoZIhvcNAQEL
+BQAwIzEhMB8GA1UEAwwYd3d3LnN0cnVjdHVyYWxiaW9sb2d5LmV1MB4XDTE1MDgy
+NTEzMTg1OFoXDTM1MDgyNTEzMTg1OFowIzEhMB8GA1UEAwwYd3d3LnN0cnVjdHVy
+YWxiaW9sb2d5LmV1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn+rH
+Qtvg4N8exNo1VHDGJneFAbs3WeB6mm9cPhad1Sw4iFfutUxXsVzFnmkONqtcPjCS
+TCPUvR8gjKMwEeee8PWUEBp5iw0VHjgMHjTJr+V1TgpKMG1zmx1u7Q2aWNvdbu7R
+4/B3S5AWYepgUmAkGw70fMkdZxxbT1G3/ytW4plI16ZJBsIb7tE8yRneGpWLzl5U
+Ie7QT3hNPZpaPw7dPRXqebQsHXGIdVpqitNR3p3XSTC/511euZswZgHmiW8oOGLF
+UA4elRvR6zWPfCQ8Rahwwnxtu6Xgaa3J8pVqSOfYKvzl5aUaybDDS4CdgBzwjgJ0
+CLN37tOrA7MEBAT7RQIDAQABo3cwdTAdBgNVHQ4EFgQUr3bxWVKi2cyvab6z5QNK
+Y83+ZFcwVAYDVR0RBE0wS4IYd3d3LnN0cnVjdHVyYWxiaW9sb2d5LmV1hi9odHRw
+czovL3d3dy5zdHJ1Y3R1cmFsYmlvbG9neS5ldS9pZHAvc2hpYmJvbGV0aDANBgkq
+hkiG9w0BAQsFAAOCAQEADbAnaNuN9dy04ywK0q18RsnM88iw8HsUBvYjKxLdTLir
+vORxp1bYlLW5jh9o3VvhzKZM421/QhSLw5XGwQ6ApS9aW5YPvYwUttmc+oDw+ZuZ
+T5ZUaZ0Dy909RP/TeH3Y2yBhMSolGYT3E7HtHYbu7jfEal2OAgJvjQux+xhr6Y8n
+KUo3iZZA3+Gabc69F0zGv0Q3HDFvz3rwLQV3tBffmZNGalQXRRTZaeY9Ryf7TtLe
+JZdlxOmyDG01AsLCocCluqrFFPBjoQDTDHGzXVAuQkCsTY2h+YmKaZUaYZx20DBx
+704JY++IGA27mQiqpiEbnLlPIOYIPPVjhtP++CKJ2g==
+                        </ds:X509Certificate>
+                    </ds:X509Data>
+            </ds:KeyInfo>
+
+        </KeyDescriptor>
+        <KeyDescriptor use="signing">
+            <ds:KeyInfo>
+                    <ds:X509Data>
+                        <ds:X509Certificate>
+MIIDSzCCAjOgAwIBAgIUOHJHcRtkxn3TjP9AQU1kRrEa0A8wDQYJKoZIhvcNAQEL
+BQAwIzEhMB8GA1UEAwwYd3d3LnN0cnVjdHVyYWxiaW9sb2d5LmV1MB4XDTE1MDgy
+NTEzMTg1N1oXDTM1MDgyNTEzMTg1N1owIzEhMB8GA1UEAwwYd3d3LnN0cnVjdHVy
+YWxiaW9sb2d5LmV1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoW65
+NLfQ/FMiE1Sx1P9GlYKeXt5k2d53Un/HK0NNAvSg0RZhmsa/QVSIuMKIFKJsMM4z
+z6WJ/OYjJkRDfCmURMgO1x2HkBJh1putaRksHuPjc5gX66fh24nUnE4mZPkctvhv
+c5F3FQArHeJBWKkH/bd48fYFc4ghStMdLfCnFF+eN9twnHeDw2Q/ZUGdQ4KjgVz3
+8Zy8D3Qgp1BgpzHQDy1+yH+2ujtZz/JcQS2i8bW5YhFHAW7MSL27Pg14MrxxGgck
+m+aWKaDL/j4CaOVWT86K1bSzYm7ti2YvVIYhwr6htSDEOmJjqOI+u6P6brLQVp3n
+8tml32GLYvHPvOqZtQIDAQABo3cwdTAdBgNVHQ4EFgQU6D0+ALM8dpXI9XeyDro8
+dh+cLXgwVAYDVR0RBE0wS4IYd3d3LnN0cnVjdHVyYWxiaW9sb2d5LmV1hi9odHRw
+czovL3d3dy5zdHJ1Y3R1cmFsYmlvbG9neS5ldS9pZHAvc2hpYmJvbGV0aDANBgkq
+hkiG9w0BAQsFAAOCAQEAdmMTbFCgoeE60q13JkL4P4+IfzsHnm4h8CZaXTM/2kBZ
+a+iWyiBULLVDNIal692O+BebyKsBNsFX4o45U1yc9x2FvXyaaY9jt3HDeV30bnyo
+9xptBoO5rtT0zqcaQThzVSnGwgvvs83xrVn+rJr5nKPlOJJ1VbM3fOItktaHxwXa
+dMFBmRsVf15VjttGxfcNlQEo3G0dTn4wrujtFF4Qo+kfvLFRxN9WvrIl6LNSYsuG
+Nhho+Cu5lOH8B6rlhyXSQNs1aeNWc2wtjrEi6+KJaMiJqubxWrw4RcB3lD5T1f+P
+yHzPvPea2NE2+VOHL5htFlngZLsDkvRTTnSSKEPJ9w==
+                        </ds:X509Certificate>
+                    </ds:X509Data>
+            </ds:KeyInfo>
+
+        </KeyDescriptor>
+        <KeyDescriptor use="encryption">
+            <ds:KeyInfo>
+                    <ds:X509Data>
+                        <ds:X509Certificate>
+MIIDSzCCAjOgAwIBAgIUTFRnZNxxIYdO0l/I88reQLFsM+EwDQYJKoZIhvcNAQEL
+BQAwIzEhMB8GA1UEAwwYd3d3LnN0cnVjdHVyYWxiaW9sb2d5LmV1MB4XDTE1MDgy
+NTEzMTg1OFoXDTM1MDgyNTEzMTg1OFowIzEhMB8GA1UEAwwYd3d3LnN0cnVjdHVy
+YWxiaW9sb2d5LmV1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzl/V
+s+G7fqNzgklAciczuMYDfy5CERJmBsgGij6yWLSB4LmHxN933K/I7eYEdSsBFtxY
+qRv9CnFAFvho9U74QCbuAHGQ0JlrBBLVxIm+rDjw/dw2+38UOPJuQTblQiigHtzW
+OvIQGakGf7obsbmCeFGeCBm39e2kstDSTzxFy98BJ44fwMJz0+vteNJldskx6W/y
+ZCwV2GPUnoc7Kw+M5cZOxy6FUkuPicqWeptsjb4wLSVT7tfK7N8YlJtA7N6J3Udj
+qhHM+TXwoOt5JV9G57jAYkRuU0jwdQCdNcHoyx6ABMKIekL2JQ1b8ySrktmeWe/+
+XUmgrNpmO+GSNo6BNwIDAQABo3cwdTAdBgNVHQ4EFgQUp8N3+712IkH1mJafXlVV
+btXaXVUwVAYDVR0RBE0wS4IYd3d3LnN0cnVjdHVyYWxiaW9sb2d5LmV1hi9odHRw
+czovL3d3dy5zdHJ1Y3R1cmFsYmlvbG9neS5ldS9pZHAvc2hpYmJvbGV0aDANBgkq
+hkiG9w0BAQsFAAOCAQEALFUe6JuChoJXnA4S/vlSCNM/pmk+IL1JvlAAIMHcduEs
+4Zx2SomGjqzIgUjtLSG8b+Rq1La80u8AnhKEW+srduNzLm6JKF7+PCzUgNX+exs3
+jxwmb92cAOKMF9zgsTdra5RNaBTyepDUIUNUPzudfH16wTVjh7KH8u/htTO9uRY0
+pzH+NiHHiQpkmKIaw/LiBhqflNUCn0A0cDFE7UJLOakZabeVq57luyxE5WJLJKu6
+WmLG8WoVmV3qumoX+nJ5kZwZepEFK3GlV9OVzl9T7hg0Q8J9M+XN7S7NZ5BSDmM7
+E4V9KsjmYVLFlrQmjjJSiuXaP14LaPm4+Y93ZCT68g==
+                        </ds:X509Certificate>
+                    </ds:X509Data>
+            </ds:KeyInfo>
+
+        </KeyDescriptor>
+
+        <AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://www.structuralbiology.eu/idp/profile/SAML1/SOAP/AttributeQuery"/>
+        <!-- <AttributeService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://www.structuralbiology.eu/idp/profile/SAML2/SOAP/AttributeQuery"/> -->
+        <!-- If you uncomment the above you should add urn:oasis:names:tc:SAML:2.0:protocol to the protocolSupportEnumeration above -->
+
+    </AttributeAuthorityDescriptor>
+
+</EntityDescriptor>

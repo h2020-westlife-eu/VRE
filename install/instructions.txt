@@ -92,8 +92,7 @@ sudo apt-get install virtualbox-ext-pack
 # Set up the Westlife VM
 
 git clone https://github.com/h2020-westlife-eu/wp6-vm.git
-cd wp6-vm
-cd vf-standalone-bin
+cd wp6-vm/vf-server-bin/
 vagrant up
 
 Power off the VM. In following instructions, adapt the name of the VM

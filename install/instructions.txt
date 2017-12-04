@@ -93,6 +93,7 @@ sudo apt-get install virtualbox-ext-pack
 
 git clone https://github.com/h2020-westlife-eu/wp6-vm.git
 cd wp6-vm/vf-server-bin/
+#Put here the old Metadata.key and Metadata.sqlite if we want to restore old data
 vagrant up
 
 Power off the VM. In following instructions, adapt the name of the VM
